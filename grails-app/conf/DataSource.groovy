@@ -20,9 +20,9 @@ environments {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
             driverClassName = "com.mysql.jdbc.Driver"
-            url = "jdbc:mysql://gabrielsite.com.ar:3306/gabriel_products"
-            username = "gabriel102963"
-            password = "gabrielM@123"
+            url = "jdbc:mysql://localhost:3306/products"
+            username = "root"
+            password = ""
         }
     }
     test {
