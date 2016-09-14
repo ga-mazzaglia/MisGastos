@@ -20,9 +20,9 @@ environments {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
             driverClassName = "com.mysql.jdbc.Driver"
-            url = "jdbc:mysql://localhost:3306/products"
-            username = "root"
-            password = ""
+            url = "jdbc:mysql://gabrielsite.com.ar:3306/gabriel_products"
+            username = "gabriel_products"
+            password = "gabriel@products"
         }
     }
     test {
@@ -33,8 +33,11 @@ environments {
     }
     production {
         dataSource {
-            dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+            driverClassName = "com.mysql.jdbc.Driver"
+            url = "jdbc:mysql://gabrielsite.com.ar:3306/products"
+            username = "gabriel_products"
+            password = "gabriel@products"
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true
