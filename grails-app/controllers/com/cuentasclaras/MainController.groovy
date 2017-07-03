@@ -24,4 +24,9 @@ class MainController {
         ])
     }
 
+    def movementSave() {
+        println request.JSON
+        movementList()
+    }
+
 }

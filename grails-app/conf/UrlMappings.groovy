@@ -18,6 +18,9 @@ class UrlMappings {
         "/movement/create"(controller: "Main", parseRequest: true) {
             action = [GET: "movementCreate"]
         }
+        "/movement/save"(controller: "Main", parseRequest: true) {
+            action = [POST: "movementSave"]
+        }
 
         "/$controller/$action?/$id?(.$format)?" {
             constraints {

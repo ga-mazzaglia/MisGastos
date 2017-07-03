@@ -18,7 +18,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        <form role="form">
+                        <form action="movement/save" role="form" method="POST">
                             <!-- fecha -->
                             <div class="form-group">
                                 <input class="form-control datepicker" placeholder="Fecha">
@@ -52,7 +52,7 @@
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-success">Guardar</button>
-                            <button type="reset" class="btn btn-danger">Cancelar</button>
+                            <a href="/movement/list" class="btn btn-danger">Cancelar</a>
                         </form>
                     </div>
                 </div>
