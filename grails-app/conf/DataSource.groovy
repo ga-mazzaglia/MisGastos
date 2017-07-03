@@ -37,10 +37,13 @@ environments {
     }
     production {
         dataSource {
-            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://93.188.160.43:3306/u452321268_cclar"
-            username = "u452321268_cclar"
-            password = "gabriel@123"
+            pooled = true
+            jmxExport = true
+            driverClassName = "org.h2.Driver"
+            username = "sa"
+            password = ""
+            dbCreate = "update"
+            url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
 
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
