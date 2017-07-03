@@ -1,0 +1,27 @@
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.break {
+    background-color: lightgray;
+    color: grey;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+table tbody tr {
+    height: 50px;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+}
