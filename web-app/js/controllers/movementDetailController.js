@@ -10,6 +10,15 @@ var movementDetailController = {
             }
         });
     },
+
+    save: function () {
+        console.log("save");
+        var args = jQuery("#movementDetail").serializeArray();
+        console.log(args);
+        Rest.doPost("/movement/save", args, function (data) {
+            console.log(data);
+        })
+    }
 }
 
 jQuery(document).ready(movementDetailController.init);

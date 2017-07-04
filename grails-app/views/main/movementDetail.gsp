@@ -18,25 +18,25 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        <form action="movement/save" role="form" method="POST">
+                        <form id="movementDetail" action="javascript: movementDetailController.save();" role="form" method="POST">
                             <!-- fecha -->
                             <div class="form-group">
-                                <input class="form-control datepicker" placeholder="Fecha">
+                                <input class="form-control datepicker" placeholder="Fecha" name="date">
                             </div>
                             <!-- descripcion -->
                             <div class="form-group">
-                                <input class="form-control" placeholder="Descripción" autofocus >
+                                <input class="form-control" placeholder="Descripción" autofocus name="detail" value="Holas 123">
                             </div>
                             <!-- monto -->
                             <div class="form-group input-group">
                                 <span class="input-group-addon"><i class="fa fa-eur"></i>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Importe">
+                                <input type="text" class="form-control" placeholder="Importe" name="amount" value="12.50">
                             </div>
                             <!-- tipo -->
                             <div class="form-group" id="type">
                                 <label>Tipo</label>
-                                <select class="form-control">
+                                <select class="form-control" name="type">
                                     <g:each in="${movementTypes}" var="type">
                                         <option value="${type.id}">${type.detail}</option>
                                     </g:each>

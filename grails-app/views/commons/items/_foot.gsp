@@ -13,6 +13,7 @@
 
 <!-- Custom JavaScript -->
 <script src="/js/Utils.js?v=${Math.random() as java.lang.Integer}"></script>
+<script src="/js/Rest.js?v=${Math.random() as java.lang.Integer}"></script>
 
 
 <script src="/js/datepicker/js/bootstrap-datepicker.js"></script>

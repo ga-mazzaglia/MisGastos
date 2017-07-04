@@ -24,19 +24,19 @@
             <div class="table-responsive">
                 <table id="tableTurns" class="table table-hover" width="100%" style="margin-top: 0px;margin-bottom: 0px">
                     <tbody>
-                        <g:each in="${[1, 2]}" var="turn">
+                        <g:each in="${movements}" var="mov">
                             <tr>
                                 <td>
-                                    <div style="float: left">
+                                    <div>
                                         <div style="float: left">
-                                            NAFTA
+                                            ${mov.date.format("dd-MM-yyyy")}
                                         </div>
                                         <div style="float: right">
-                                            $ 120.50
+                                            $ ${mov.amount}
                                         </div>
                                         <div style="clear: both"></div>
                                         <div style="float: left">
-                                            02-06-2017
+                                            ${mov.detail}
                                         </div>
                                         <div style="float: right">
 
@@ -44,7 +44,7 @@
                                     </div>
                                     <div style="float: right">
                                         <a type="button"
-                                           href="/movement/create"
+                                           href="/movement/delete/${mov.id}"
                                            data-toggle="tooltip" data-placement="bottom"
                                            data-original-title="Eliminar">
                                             <i class="fa fa-minus"></i>

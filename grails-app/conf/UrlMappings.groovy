@@ -2,15 +2,21 @@ class UrlMappings {
 
     static mappings = {
 
-        "/"(controller: "Test", parseRequest: true) {
-            action = [GET: "ping"]
-        }
+        //-- VIEWS --
 
+        "/"(controller: "Main", parseRequest: true) {
+            action = [GET: "home"]
+        }
         "/main"(controller: "Main", parseRequest: true) {
-            action = [GET: "index"]
+            action = [GET: "home"]
         }
 
-        //-- MOVEMENTS --
+        "/login"(controller: "Main", parseRequest: true) {
+            action = [GET: "login"]
+        }
+        "/logout"(controller: "Main", parseRequest: true) {
+            action = [GET: "logout"]
+        }
 
         "/movement/list"(controller: "Main", parseRequest: true) {
             action = [GET: "movementList"]
@@ -18,7 +24,13 @@ class UrlMappings {
         "/movement/create"(controller: "Main", parseRequest: true) {
             action = [GET: "movementCreate"]
         }
-        "/movement/save"(controller: "Main", parseRequest: true) {
+
+        //-- AJAX --
+
+        "/ajax/signin"(controller: "Ajax", parseRequest: true) {
+            action = [POST: "signIn"]
+        }
+        "/ajax/movement/save"(controller: "Ajax", parseRequest: true) {
             action = [POST: "movementSave"]
         }
 

@@ -10,6 +10,7 @@ class Movement {
     Date date;
     String detail;
     Double amount;
+    MovementType type;
 
     static belongsTo = Tag
     static hasMany = [tags: Tag]
@@ -26,6 +27,7 @@ class Movement {
         date(nullable: false)
         detail(nullable: false, blank: false)
         amount(nullable: false)
+        type(nullable: false)
     }
 
     public Map getValues() {
