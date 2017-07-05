@@ -51,6 +51,7 @@ class Movement {
                 amount      : amount,
                 deleted     : deleted,
                 users       : users*.getValues(),
+                type        : type.getValues(),
         ];
     }
 

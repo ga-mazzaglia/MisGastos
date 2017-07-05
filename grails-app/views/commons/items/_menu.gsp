@@ -1,3 +1,6 @@
+<%@ page import="com.cuentasclaras.User" %>
+<% User userLogged = grailsApplication.mainContext.getBean("loginService").getUserLogged(); %>
+
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
@@ -16,7 +19,7 @@
                 <img src="http://www.megatec.org.pe/wp-content/uploads/2016/03/Generic_Avatar-e1458146412169.png" width="100"/>
 
                 <div style="margin-top: 10px; font-weight: bold;">
-                    Gabriel Mazzaglia
+                    ${userLogged.name}
                 </div>
             </li>
 

@@ -1,6 +1,8 @@
 <%@ page import="java.text.DecimalFormat" %>
 <g:render template="/commons/header"/>
 <% def v = new Date().format("yyyyMMddHHmmss"); %>
+<%@ page import="com.cuentasclaras.User" %>
+<% User userLogged = grailsApplication.mainContext.getBean("loginService").getUserLogged(); %>
 
 <div class="row">
     <div class="col-lg-12">
@@ -32,14 +34,14 @@
                         </g:if>
                         <g:each in="${movements}" var="mov">
                             <tr class="row-mov" id="${mov.id}">
-                                <td style="color: ${mov.type.color};">
+                                <td style="color: ${mov.color};">
                                     <div>
                                         <div style="float: left">
                                             ${mov.date.format("dd-MM-yyyy")}
                                         </div>
 
                                         <div style="float: right">
-                                            $ ${new java.text.DecimalFormat("###,##0.00").format(mov.getTotalAmount())}
+                                            $ ${new java.text.DecimalFormat("###,##0.00").format(mov.amount)}
                                             <g:if test="${mov.users.size()}">(*)</g:if>
                                         </div>
 
@@ -52,21 +54,29 @@
 
                                     <div style="clear: both"></div>
 
-                                    <div id="btns_${mov.id}" style="text-align: right;display: none;">
-                                        <g:if test="${mov.users.size()}">
-                                            <button class="btn btn-primary" type="button"
-                                                    onclick="movementListController.showDetails(${mov.id})"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    data-original-title="Ver detalle">
-                                                <i class="fa fa-gears"></i>
-                                            </button>
-                                        </g:if>
-                                        <button class="btn btn-danger" type="button"
-                                                onclick="movementListController.delete(${mov.id})"
-                                                data-toggle="tooltip" data-placement="bottom"
-                                                data-original-title="Eliminar">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
+                                    <div id="btns_${mov.id}_block" style="display: ;">
+                                        <div style="float: left; margin-top: 10px;">
+                                            ${mov.userToDisplay}
+                                        </div>
+
+                                        <div style="text-align: right;">
+                                            <g:if test="${mov.type.id == 1}">
+                                                <button class="btn btn-primary" type="button"
+                                                        onclick="movementListController.showDetails(${mov.id})"
+                                                        data-toggle="tooltip" data-placement="bottom"
+                                                        data-original-title="Ver detalle">
+                                                    <i class="fa fa-gears"></i>
+                                                </button>
+                                            </g:if>
+                                            <g:if test="${mov.user.id == userLogged.id}">
+                                                <button class="btn btn-danger" type="button"
+                                                        onclick="movementListController.delete(${mov.id})"
+                                                        data-toggle="tooltip" data-placement="bottom"
+                                                        data-original-title="Eliminar">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </g:if>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>

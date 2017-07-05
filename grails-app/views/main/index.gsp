@@ -13,36 +13,35 @@
     <g:render template="/commons/items/notifications"/>
 
     <div class="col-lg-12 col-md-6">
-        <div class="panel panel-green">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-tasks fa-5x"></i>
-                    </div>
+        <g:if test="${items.status == org.apache.http.HttpStatus.SC_OK}">
+            <g:each in="${items.response}" var="item">
 
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">$ 12.00</div>
+                <div class="panel panel-${item.amount >= 0 ? "green" : "red"}">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
 
-                        <div>Paulo Mazzaglia</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-red">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-tasks fa-5x"></i>
-                    </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">
+                                    $ ${new java.text.DecimalFormat("###,##0.00").format(item.amount)}
+                                </div>
 
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">$ 23.90</div>
-
-                        <div>Nicolas Mazzaglia</div>
+                                <div>
+                                    ${item.user.name} <g:if test="${item.amount != 0}">${item.amount >= 0 ? "(le debo)" : "(me debe)"}</g:if>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </g:each>
+        </g:if>
+        <g:else>
+            <div>
+                No posee deudores ni acredores
             </div>
-        </div>
+        </g:else>
     </div>
 </div>
 

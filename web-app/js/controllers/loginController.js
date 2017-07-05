@@ -9,10 +9,11 @@ var loginController = {
             username: jQuery("#username").val(),
             password: jQuery("#password").val(),
         };
+        jQuery("#errorMessage").hide().html("");
+        jQuery("#successMessage").html("verificando...").show();
         Rest.doPost("/signin", args, function (data) {
-            console.log(data);
             jQuery("#errorMessage").hide().html("");
-            jQuery("#successMessage").html("verificando...").show();
+            jQuery("#successMessage").hide().html("");
             if(data.status != 200){
                 jQuery("#errorMessage").html(data.responseJSON.response.message).show();
             } else {

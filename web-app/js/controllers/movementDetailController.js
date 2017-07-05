@@ -3,7 +3,7 @@ var movementDetailController = {
     init: function () {
         console.log("movementDetailController.init()");
         jQuery("#type").change(function () {
-            if(jQuery(this).find(":selected").val() == 2){
+            if(jQuery(this).find(":selected").val() != 1){
                 jQuery("div#friends").show();
             } else {
                 jQuery("div#friends").hide();

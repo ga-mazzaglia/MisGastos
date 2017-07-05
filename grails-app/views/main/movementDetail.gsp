@@ -26,13 +26,13 @@
                             </div>
                             <!-- descripcion -->
                             <div class="form-group">
-                                <input class="form-control" placeholder="Descripción" autofocus name="detail" value="Holas 123">
+                                <input class="form-control" placeholder="Descripción" autofocus name="detail" value="">
                             </div>
                             <!-- monto -->
                             <div class="form-group input-group">
                                 <span class="input-group-addon"><i class="fa fa-dollar"></i>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Importe" name="amount" value="12.50">
+                                <input type="text" class="form-control" placeholder="Importe" name="amount" value="">
                             </div>
                             <!-- tipo -->
                             <div class="form-group" id="type">

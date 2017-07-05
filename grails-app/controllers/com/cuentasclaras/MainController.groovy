@@ -9,6 +9,7 @@ class MainController {
     MovementService movementService
 
     def login() {
+        grailsApplication.mainContext.getBean("loginService")
         User userLogged = loginService.getUserLogged();
         if (userLogged) {
             redirect url: params.back ?: "/main"
@@ -34,7 +35,10 @@ class MainController {
             redirect url: "/login?back=" + "/main"
             return;
         }
-        render(view: "index")
+        def items = movementService.getDebtsByFriends();
+        render(view: "index", model: [
+                items: items
+        ])
     }
 
     def movementList() {
@@ -44,7 +48,7 @@ class MainController {
             return;
         }
         def movements = movementService.getList();
-        render(view: "movementList", model :[
+        render(view: "movementList", model: [
                 movements: movements
         ])
     }
@@ -56,8 +60,8 @@ class MainController {
             return;
         }
 
-        def friends = mainService.getFriends(1);
-        def tags = mainService.getTags(1);
+        def friends = mainService.getFriends(userLogged.id);
+        def tags = mainService.getTags(userLogged.id);
         def movTypes = mainService.getMovementTypes();
 
         render(view: "movementDetail", model: [
