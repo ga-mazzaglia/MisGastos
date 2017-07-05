@@ -47,19 +47,11 @@
 
                                         <div style="clear: both"></div>
 
-                                        <div style="float: left">
-                                            ${mov.detail}
-                                        </div>
-                                    </div>
-
-                                    <div style="clear: both"></div>
-
-                                    <div id="btns_${mov.id}_block" style="display: ;">
-                                        <div style="float: left; margin-top: 10px;">
+                                        <div style="float: left;margin-top: 5px;">
+                                            ${mov.detail}<br />
                                             ${mov.userToDisplay}
                                         </div>
-
-                                        <div style="text-align: right;">
+                                        <div style="text-align: right;height: 40px;margin-top: 5px;padding-top: 2px;">
                                             <g:if test="${mov.type.id == 1}">
                                                 <button class="btn btn-primary" type="button"
                                                         onclick="movementListController.showDetails(${mov.id})"
@@ -78,6 +70,8 @@
                                             </g:if>
                                         </div>
                                     </div>
+
+                                    <div style="clear: both"></div>
                                 </td>
                             </tr>
                         </g:each>
