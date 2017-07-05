@@ -28,7 +28,7 @@ class LoginService {
         if (user) {
             if (user.passEncript == MessageDigest.getInstance("MD5").digest(loginCommand.password.bytes).encodeHex().toString()) {
                 sessionService.saveValue(USER_LOGGED, user)
-                result = [status: HttpStatus.SC_OK, response: [user: user]];
+                result = [status: HttpStatus.SC_OK, response: [user: this.getUserLogged()]];
             } else {
                 result = [status: HttpStatus.SC_BAD_REQUEST, response: [message: "Usuario y/o contraseña incorrecta!"]];
             }

@@ -11,9 +11,10 @@ class Movement {
     String detail;
     Double amount;
     MovementType type;
+    Boolean deleted = false;
 
     static belongsTo = Tag
-    static hasMany = [tags: Tag]
+    static hasMany = [tags: Tag, users: User]
 
     static mapping = {
         version false
@@ -28,6 +29,15 @@ class Movement {
         detail(nullable: false, blank: false)
         amount(nullable: false)
         type(nullable: false)
+        deleted(nullable: false)
+        users(nullable: true)
+    }
+
+    public Double getTotalAmount() {
+        if (users.size()) {
+            return (this.amount / (users.size() + 1));
+        }
+        return this.amount;
     }
 
     public Map getValues() {
@@ -39,6 +49,8 @@ class Movement {
                 date        : date,
                 detail      : detail,
                 amount      : amount,
+                deleted     : deleted,
+                users       : users*.getValues(),
         ];
     }
 

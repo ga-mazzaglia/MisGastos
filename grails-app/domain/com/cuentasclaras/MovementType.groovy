@@ -5,6 +5,7 @@ import grails.converters.JSON
 class MovementType {
 
     String detail;
+    String color;
 
     static mapping = {
         version false
@@ -19,6 +20,7 @@ class MovementType {
         return [
                 id    : id,
                 detail: detail,
+                color : color,
         ];
     }
 

@@ -18,7 +18,7 @@ class User {
         name(nullable: false, blank: false)
         username(nullable: false, blank: false)
         passEncript(nullable: false, blank: false)
-        friends(nullable: false)
+        friends(nullable: true)
     }
 
     public Map getValues() {
@@ -27,7 +27,6 @@ class User {
                 name       : name,
                 username   : username,
                 passEncript: passEncript,
-                friends    : friends,
         ];
     }
 

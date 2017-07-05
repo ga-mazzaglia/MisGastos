@@ -9,6 +9,11 @@ class MainController {
     MovementService movementService
 
     def login() {
+        User userLogged = loginService.getUserLogged();
+        if (userLogged) {
+            redirect url: params.back ?: "/main"
+            return;
+        }
         render(view: "login", model: [
                 action  : "login",
                 scope   : Environment.current.name.toLowerCase(),
@@ -25,7 +30,7 @@ class MainController {
 
     def home() {
         User userLogged = loginService.getUserLogged();
-        if (userLogged) {
+        if (!userLogged) {
             redirect url: "/login?back=" + "/main"
             return;
         }

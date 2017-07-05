@@ -33,6 +33,12 @@ class UrlMappings {
         "/ajax/movement/save"(controller: "Ajax", parseRequest: true) {
             action = [POST: "movementSave"]
         }
+        "/ajax/movement/delete"(controller: "Ajax", parseRequest: true) {
+            action = [POST: "movementDelete"]
+        }
+        "/ajax/movement/$id?"(controller: "Ajax", parseRequest: true) {
+            action = [GET: "movementDetail"]
+        }
 
         "/$controller/$action?/$id?(.$format)?" {
             constraints {

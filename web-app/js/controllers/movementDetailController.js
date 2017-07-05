@@ -12,11 +12,21 @@ var movementDetailController = {
     },
 
     save: function () {
-        console.log("save");
         var args = jQuery("#movementDetail").serializeArray();
-        console.log(args);
+        jQuery(args).each(function (index, item) {
+            console.log(index, item);
+            if(item.name == "amount"){
+                item.value = item.value.replace(".", ",")
+            }
+        });
+        jQuery("#buttons").hide();
         Rest.doPost("/movement/save", args, function (data) {
-            console.log(data);
+            if(data.status == 200){
+                location = "/movement/list"
+            } else {
+                jQuery("#errorMessage").html(data.responseJSON.response.message);
+            }
+            jQuery("#buttons").show();
         })
     }
 }

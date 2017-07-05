@@ -15,6 +15,7 @@
             <div class="panel-heading">
                 Informaci&oacute;n
             </div>
+
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
@@ -29,7 +30,7 @@
                             </div>
                             <!-- monto -->
                             <div class="form-group input-group">
-                                <span class="input-group-addon"><i class="fa fa-eur"></i>
+                                <span class="input-group-addon"><i class="fa fa-dollar"></i>
                                 </span>
                                 <input type="text" class="form-control" placeholder="Importe" name="amount" value="12.50">
                             </div>
@@ -45,14 +46,21 @@
                             <!-- amigos -->
                             <div class="form-group" id="friends" style="display: none;">
                                 <label>Amigos</label>
-                                <select class="form-control">
-                                    <g:each in="${friends}" var="friend">
-                                        <option value="${friend.id}">${friend.name}</option>
-                                    </g:each>
-                                </select>
+                            <br />
+                                <g:each in="${friends}" var="friend">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="${friend.id}" name="friends"> ${friend.name}
+                                    </label>
+                                    <br />
+                                </g:each>
                             </div>
-                            <button type="submit" class="btn btn-success">Guardar</button>
-                            <a href="/movement/list" class="btn btn-danger">Cancelar</a>
+
+                            <div id="errorMessage"></div>
+
+                            <div id="buttons">
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                                <a href="/movement/list" class="btn btn-danger">Cancelar</a>
+                            </div>
                         </form>
                     </div>
                 </div>

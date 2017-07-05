@@ -7,19 +7,11 @@ import grails.validation.Validateable
  * Created by gmazzaglia on 3/7/17.
  */
 @Validateable
-class MovementEditCommand {
-    String date
-    String detail
-    Double amount
-    Long type
-    Long[] friends
+class MovementDeleteCommand {
+    Long id
 
     static constraints = {
-        date(nullable: false, blank: false)
-        detail(nullable: false, blank: false)
-        amount(nullable: false)
-        type(nullable: false)
-        friends(nullable: true)
+        id(nullable: false)
     }
 
     public Map getTheErrors() {
@@ -33,11 +25,7 @@ class MovementEditCommand {
 
     public Map getValues() {
         return [
-                date   : date,
-                detail : detail,
-                amount : amount,
-                type   : type,
-                friends: friends,
+                id: id,
         ];
     }
 

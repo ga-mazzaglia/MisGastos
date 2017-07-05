@@ -1,3 +1,4 @@
+<%@ page import="java.text.DecimalFormat" %>
 <g:render template="/commons/header"/>
 <% def v = new Date().format("yyyyMMddHHmmss"); %>
 
@@ -24,31 +25,48 @@
             <div class="table-responsive">
                 <table id="tableTurns" class="table table-hover" width="100%" style="margin-top: 0px;margin-bottom: 0px">
                     <tbody>
-                        <g:each in="${movements}" var="mov">
+                        <g:if test="${movements.size() == 0}">
                             <tr>
-                                <td>
+                                <td class="center">no hay movimientos</td>
+                            </tr>
+                        </g:if>
+                        <g:each in="${movements}" var="mov">
+                            <tr class="row-mov" id="${mov.id}">
+                                <td style="color: ${mov.type.color};">
                                     <div>
                                         <div style="float: left">
                                             ${mov.date.format("dd-MM-yyyy")}
                                         </div>
+
                                         <div style="float: right">
-                                            $ ${mov.amount}
+                                            $ ${new java.text.DecimalFormat("###,##0.00").format(mov.getTotalAmount())}
+                                            <g:if test="${mov.users.size()}">(*)</g:if>
                                         </div>
+
                                         <div style="clear: both"></div>
+
                                         <div style="float: left">
                                             ${mov.detail}
                                         </div>
-                                        <div style="float: right">
-
-                                        </div>
                                     </div>
-                                    <div style="float: right">
-                                        <a type="button"
-                                           href="/movement/delete/${mov.id}"
-                                           data-toggle="tooltip" data-placement="bottom"
-                                           data-original-title="Eliminar">
+
+                                    <div style="clear: both"></div>
+
+                                    <div id="btns_${mov.id}" style="text-align: right;display: none;">
+                                        <g:if test="${mov.users.size()}">
+                                            <button class="btn btn-primary" type="button"
+                                                    onclick="movementListController.showDetails(${mov.id})"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    data-original-title="Ver detalle">
+                                                <i class="fa fa-gears"></i>
+                                            </button>
+                                        </g:if>
+                                        <button class="btn btn-danger" type="button"
+                                                onclick="movementListController.delete(${mov.id})"
+                                                data-toggle="tooltip" data-placement="bottom"
+                                                data-original-title="Eliminar">
                                             <i class="fa fa-minus"></i>
-                                        </a>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
