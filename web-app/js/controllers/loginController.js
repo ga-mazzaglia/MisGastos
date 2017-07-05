@@ -20,7 +20,7 @@ var loginController = {
                 jQuery("#successMessage").html("entrando...").show();
                 var url = new URL(location.href);
                 var c = url.searchParams.get("back");
-                location = c ? c : "/main";
+                location = c ? c : "/";
             }
         })
     },

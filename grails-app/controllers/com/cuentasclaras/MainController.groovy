@@ -12,7 +12,7 @@ class MainController {
         grailsApplication.mainContext.getBean("loginService")
         User userLogged = loginService.getUserLogged();
         if (userLogged) {
-            redirect url: params.back ?: "/main"
+            redirect url: params.back ?: "/"
             return;
         }
         render(view: "login", model: [
@@ -32,7 +32,7 @@ class MainController {
     def home() {
         User userLogged = loginService.getUserLogged();
         if (!userLogged) {
-            redirect url: "/login?back=" + "/main"
+            redirect url: "/login?back=" + "/"
             return;
         }
         def items = movementService.getDebtsByFriends();

@@ -7,9 +7,6 @@ class UrlMappings {
         "/"(controller: "Main", parseRequest: true) {
             action = [GET: "home"]
         }
-        "/main"(controller: "Main", parseRequest: true) {
-            action = [GET: "home"]
-        }
 
         "/login"(controller: "Main", parseRequest: true) {
             action = [GET: "login"]
@@ -46,7 +43,6 @@ class UrlMappings {
             }
         }
 
-        "/"(view: "/index")
         "500"(view: '/error')
     }
 }

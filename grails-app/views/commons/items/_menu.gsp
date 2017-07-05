@@ -24,10 +24,13 @@
             </li>
 
             <li>
-                <a href="/main" id="main">Inicio</a>
+                <a href="/" id="main">Inicio</a>
             </li>
             <li>
                 <a href="/movement/list" id="movements">Movimientos</a>
+            </li>
+            <li>
+                <a href="/logout" id="logout" style="color: red;">Salir</a>
             </li>
             <li style="display: none;">
                 <a href="/friends" id="friends">Amigos</a>
