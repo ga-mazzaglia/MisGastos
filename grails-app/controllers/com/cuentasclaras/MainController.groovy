@@ -1,11 +1,11 @@
 package com.cuentasclaras
 
+import com.cuentasclaras.commands.MovementListCommand
 import grails.util.Environment
 
 class MainController {
 
     LoginService loginService
-    MainService mainService
     MovementService movementService
 
     def login() {
@@ -30,9 +30,11 @@ class MainController {
     }
 
     def home() {
+        Map args = params + request.JSON;
+
         User userLogged = loginService.getUserLogged();
         if (!userLogged) {
-            redirect url: "/login?back=" + "/"
+            redirect url: "/login?back=/" + getQueryParams(args)
             return;
         }
         def items = movementService.getDebtsByFriends();
@@ -42,33 +44,59 @@ class MainController {
     }
 
     def movementList() {
+        Map args = params + request.JSON;
+
         User userLogged = loginService.getUserLogged();
         if (!userLogged) {
-            redirect url: "/login?back=" + "/movement/list"
+            redirect url: "/login?back=/movement/list" + getQueryParams(args)
             return;
         }
-        def movements = movementService.getList();
+
+        MovementListCommand movementListCommand = new MovementListCommand();
+        bindData(movementListCommand, args);
+        def movements = movementService.getList(movementListCommand);
         render(view: "movementList", model: [
                 movements: movements
         ])
     }
 
     def movementCreate() {
+        Map args = params + request.JSON;
+
         User userLogged = loginService.getUserLogged();
         if (!userLogged) {
-            redirect url: "/login?back=" + "/movement/create"
+            String path = "/movement/create";
+            if (params.id) {
+                path = "/movement/edit/" + params.id;
+            }
+            redirect url: "/login?back=${path}" + getQueryParams(args)
             return;
         }
 
-        def friends = mainService.getFriends(userLogged.id);
-        def tags = mainService.getTags(userLogged.id);
-        def movTypes = mainService.getMovementTypes();
+        def movement = movementService.get(params.id as Long);
+        def friends = userLogged.friends;
+        def tags = movementService.getTags();
+        def movTypes = movementService.getMovementTypes();
 
         render(view: "movementDetail", model: [
+                mov          : movement.response,
                 friends      : friends,
                 tags         : tags,
                 movementTypes: movTypes,
         ])
+    }
+
+    private String getQueryParams(Map args) {
+        List attrs = [];
+        args.each { k, v ->
+            if (!(k in ["action", "controller"]) && v) {
+                attrs << "$k=$v"
+            }
+        }
+        if (attrs.size()) {
+            return "?" + attrs.join('&')
+        }
+        return "";
     }
 
 }

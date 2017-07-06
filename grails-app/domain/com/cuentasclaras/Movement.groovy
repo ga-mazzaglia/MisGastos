@@ -6,15 +6,14 @@ class Movement {
 
     User user;
     Date creationDate = new Date();
-    Date lastUpdate;
-    Date date;
-    String detail;
+    Date lastUpdate = new Date();
+    Date date = new Date();
+    String detail = "";
     Double amount;
-    MovementType type;
     Boolean deleted = false;
 
-    static belongsTo = Tag
     static hasMany = [tags: Tag, users: User]
+    MovementType type;
 
     static mapping = {
         version false
@@ -43,7 +42,7 @@ class Movement {
     public Map getValues() {
         return [
                 id          : id,
-                user        : user.getValues(),
+                user        : user?.getValues(),
                 creationDate: creationDate,
                 lastUpdate  : lastUpdate,
                 date        : date,
@@ -51,7 +50,8 @@ class Movement {
                 amount      : amount,
                 deleted     : deleted,
                 users       : users*.getValues(),
-                type        : type.getValues(),
+                tags        : tags*.getValues(),
+                type        : type?.getValues(),
         ];
     }
 

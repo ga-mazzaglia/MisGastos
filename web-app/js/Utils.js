@@ -38,5 +38,10 @@ var Utils = {
 
     addMinutesToDate: function (date, minutes) {
         return new Date(date.getTime() + (minutes * 60000));
-    }
+    },
+
+    getUrlParam: function (param) {
+        var url = new URL(location.href);
+        return url.searchParams.get(param);
+    },
 };

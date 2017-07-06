@@ -18,9 +18,12 @@ var loginController = {
                 jQuery("#errorMessage").html(data.responseJSON.response.message).show();
             } else {
                 jQuery("#successMessage").html("entrando...").show();
-                var url = new URL(location.href);
-                var c = url.searchParams.get("back");
-                location = c ? c : "/";
+                var back = Utils.getUrlParam("back")
+                if(back != null && back){
+                    location = back;
+                } else {
+                    location = "/";
+                }
             }
         })
     },

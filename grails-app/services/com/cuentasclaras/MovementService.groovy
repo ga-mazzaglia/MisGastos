@@ -2,6 +2,7 @@ package com.cuentasclaras
 
 import com.cuentasclaras.commands.MovementDeleteCommand
 import com.cuentasclaras.commands.MovementEditCommand
+import com.cuentasclaras.commands.MovementListCommand
 import com.cuentasclaras.statics.MovementsType
 import com.cuentasclaras.utils.Logger
 import org.apache.http.HttpStatus
@@ -10,6 +11,20 @@ class MovementService {
 
     LoginService loginService;
 
+    def MovementType[] getMovementTypes() {
+        return MovementType.findAll();
+    }
+
+    def Tag[] getTags() {
+        User userLogged = loginService.getUserLogged();
+        return Tag.findAllByUser(userLogged);
+    }
+
+    /**
+     * Utilizado en la home
+     *
+     * @return
+     */
     def Map getDebtsByFriends() {
         try {
             List results = []
@@ -134,15 +149,43 @@ class MovementService {
         }
     }
 
-    def List<Map> getList() {
+    def List<Map> getList(MovementListCommand movementListCommand) {
         List<Map> results = [];
 
+        Map period = movementListCommand.getFilterPeriod();
+        Date dateIni = period.ini;
+        Date dateEnd = period.end;
+
         User userLogged = loginService.getUserLogged();
-        List<Movement> movements = Movement.findAllByUserAndDeleted(userLogged, false, [sort: "date", order: "desc"]);
+        List<Movement> movements;
+        movements = Movement.findAll([sort: "date", order: "desc"]) {
+            deleted == false
+            user == userLogged
+            if (dateIni) {
+                date >= dateIni
+            }
+            if (dateEnd) {
+                date <= dateEnd
+            }
+            if (movementListCommand.search) {
+                like("detail", "%${movementListCommand.search}%")
+            }
+        }
         movements += Movement.findAll([sort: "date", order: "desc"]) {
             deleted == false
             users.id == userLogged.id
+            if (dateIni) {
+                date >= dateIni
+            }
+            if (dateEnd) {
+                date <= dateEnd
+            }
+            if (movementListCommand.search) {
+                like("detail", "%${movementListCommand.search}%")
+            }
         }
+
+        movements = movements.sort { it.date }.reverse();
 
         movements.each { Movement mov ->
             String color = "";
@@ -184,16 +227,26 @@ class MovementService {
 
     def Map save(MovementEditCommand movementEdit) {
         try {
-            Movement movement = new Movement();
-            movement.user = loginService.getUserLogged();
+            Movement movement = Movement.get(movementEdit.id);
+            if (!movement) {
+                movement = new Movement();
+                movement.user = loginService.getUserLogged();
+            }
             movement.lastUpdate = new Date();
-            movement.date = new Date();
+            movement.date = new Date().parse("yyyy-MM-dd", movementEdit.date);
             movement.detail = movementEdit.detail;
             movement.amount = movementEdit.amount;
             movement.type = MovementType.get(movementEdit.type as Long);
+            movement?.users?.clear();
+            movement?.tags?.clear();
+            movement?.tags?.removeAll()
+            movement?.tags = null;
             movement.save(flush: true, failOnError: true);
             movementEdit.friends.each { Long userId ->
                 movement.addToUsers(User.get(userId));
+            }
+            movementEdit.tags.each { Long tagId ->
+                movement.addToTags(Tag.get(tagId));
             }
             return [status: HttpStatus.SC_OK, response: movement]
         } catch (Exception ex) {
@@ -219,11 +272,19 @@ class MovementService {
     def Map get(Long movId) {
         try {
             Movement movement = Movement.get(movId);
-            Map movementInfo = movement.getValues();
-            return [status: HttpStatus.SC_OK, response: movementInfo]
+            if (!movement) {
+                User userLogged = loginService.getUserLogged();
+                movement = new Movement();
+                movement.user = userLogged;
+                movement.creationDate = new Date();
+                movement.lastUpdate = new Date();
+                movement.date = new Date();
+                movement.type = MovementType.get(1);
+            }
+            return [status: HttpStatus.SC_OK, response: movement.getValues()]
         } catch (Exception ex) {
             ex.printStackTrace();
-            Logger.error([id: movId], "MovementService.delete() Exception: " + ex.getMessage());
+            Logger.error([id: movId], "MovementService.get() Exception: " + ex.getMessage());
             return [status: HttpStatus.SC_INTERNAL_SERVER_ERROR, response: [message: ex.getMessage()]]
         }
     }

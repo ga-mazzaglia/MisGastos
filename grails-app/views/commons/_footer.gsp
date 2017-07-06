@@ -22,7 +22,7 @@
                     format: "yyyy-mm-dd",
                     orientation: "bottom",
                     autoclose: true,
-                }).datepicker('update', new Date());
+                })//.datepicker('update', new Date());
 
                 jQuery(".alert .close").click(function () {
                     jQuery(this).parent(".alert").fadeOut();

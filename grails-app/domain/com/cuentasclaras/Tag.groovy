@@ -7,8 +7,6 @@ class Tag {
     User user
     String detail
 
-    static hasMany = [movements: Movement]
-
     static mapping = {
         version false
         detail type: 'text'
@@ -17,7 +15,6 @@ class Tag {
     static constraints = {
         user(nullable: false)
         detail(nullable: false, blank: false)
-        movements(nullable: true)
     }
 
     public Map getValues() {

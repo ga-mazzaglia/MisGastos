@@ -21,6 +21,9 @@ class UrlMappings {
         "/movement/create"(controller: "Main", parseRequest: true) {
             action = [GET: "movementCreate"]
         }
+        "/movement/edit/$id"(controller: "Main", parseRequest: true) {
+            action = [GET: "movementCreate"]
+        }
 
         //-- AJAX --
 
