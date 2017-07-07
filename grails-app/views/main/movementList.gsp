@@ -49,7 +49,7 @@
                     </div>
 
                     <div style="display: inline-table;">
-                        <span>Fecha End</span><br>
+                        <span>Fecha fin</span><br>
                         <span>
                             <input type="text" format="dd/MM/yyyy" id="dateEnd" name="dateEnd" class="form-control datepicker" value="${params.dateEnd}" readonly style="background-color: white;width: 100px; text-align: center;" >
                         </span>

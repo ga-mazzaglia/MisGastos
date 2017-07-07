@@ -15,7 +15,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Mis Gastos</a>
+            <a class="navbar-brand" href="/">Mis Gastos 2.0</a>
         </div>
         <!-- /.navbar-header -->
 

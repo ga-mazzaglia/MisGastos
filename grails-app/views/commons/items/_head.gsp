@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mis Gastos</title>
+    <title>Mis Gastos 2.0</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
