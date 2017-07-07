@@ -29,3 +29,16 @@ table tbody tr {
 .btn-filter-period {
     margin-bottom: 10px;
 }
+
+
+.row_mov_part {
+    height: 30px;
+    padding: 5px;
+}
+.row_mov_part.my_part {
+    background-color: rgba(211, 211, 211, 0.42);
+}
+.row_mov_part.row_mov_part_total {
+    border-top: 1px dashed lightgray;
+    font-weight: bold;
+}

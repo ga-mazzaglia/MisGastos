@@ -1,5 +1,9 @@
 var movementListController = {
 
+    userInfo: {
+        id: undefined
+    },
+
     init: function () {
         console.log("movementListController.init()");
         jQuery(".row-mov").click(function () {
@@ -29,27 +33,30 @@ var movementListController = {
     showDetails: function (id) {
         Rest.doGet("/movement/" + id, function (data) {
             console.log(data.response);
+            var userEquals = "";
             if (data.status == 200) {
-                var html = "<div style='padding: 15px;'>";
+                var html = "<div>";
                 var quantity = data.response.users.length + 1;
                 var amount = parseFloat(data.response.amount / quantity).toFixed(2);
 
                 if (quantity != 0) {
-                    html += "   <div style='height: 30px;'>";
+                    userEquals = movementListController.userInfo.id == data.response.user.id ? "my_part" : "";
+                    html += "   <div class='row_mov_part "+userEquals+"'>";
                     html += "       <div style='float: left;'>" + data.response.user.name + "</div>";
                     html += "       <div style='float: right;'>$ " + amount + "</div>";
                     html += "   </div>";
                     html += "   <div style='clear: both'></div>";
                 }
                 jQuery(data.response.users).each(function (index, item) {
-                    html += "   <div style='height: 30px;'>";
+                    userEquals = movementListController.userInfo.id == item.id ? "my_part" : "";
+                    html += "   <div class='row_mov_part "+userEquals+"'>";
                     html += "       <div style='float: left;'>" + item.name + "</div>";
                     html += "       <div style='float: right;'>$ " + amount + "</div>";
                     html += "   </div>";
                     html += "   <div style='clear: both'></div>";
                 });
                 if (quantity != 0) {
-                    html += "   <div style='height: 30px;border-top: 1px dashed lightgray;font-weight: bold;padding-top: 10px;'>";
+                    html += "   <div class='row_mov_part row_mov_part_total'>";
                     html += "       <div style='float: left;'>TOTAL</div>";
                     html += "       <div style='float: right;'>$ " + parseFloat(data.response.amount).toFixed(2) + "</div>";
                     html += "   </div>";
@@ -97,7 +104,7 @@ var movementListController = {
         if (jQuery("#dateIni").val() || jQuery("#dateEnd").val()) {
             showSearchBox = true;
         }
-        if(!showSearchBox){
+        if (!showSearchBox) {
             jQuery(".btn-filter-period[data-filter=today]").addClass("btn-success");
         }
     },

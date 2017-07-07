@@ -50,17 +50,17 @@
                                 <label>Amigos</label>
                                 <br/>
                                 <g:each in="${friends}" var="friend">
-                                    <div style="margin-bottom: 5px;">
+                                    <div style="margin-bottom: 5px;"
+                                         onclick="movementDetailController.addFriend(${friend.id})">
                                         <button id="btn-friend_${friend.id}" type="button"
-                                                class="btn btn-${friend.id in mov?.users*.id ? "success" : "default"} btn-circle btn-friend"
                                                 data-friend_id="${friend.id}"
-                                                onclick="movementDetailController.addFriend(${friend.id})">
+                                                class="btn btn-${friend.id in mov?.users*.id ? "success" : "default"} btn-circle btn-friend">
                                             <i class="fa fa-check"></i>
                                         </button>
                                         ${friend.name}
                                     </div>
                                 </g:each>
-                                <div id="friends_added" style="display: none">
+                                <div id="friends_added" style="display: none;">
                                     <g:each in="${friends}" var="friend">
                                         <g:if test="${friend.id in mov?.users*.id}">
                                             <input name='friends' value="${friend.id}"/>

@@ -178,6 +178,7 @@
 <script src="/js/controllers/movementListController.js?v=${v}"></script>
 <script type="text/javascript">
     console.log("movementListController()");
+    movementListController.userInfo.id = "${userLogged.id}";
 </script>
 
 <g:render template="/commons/footer"/>
