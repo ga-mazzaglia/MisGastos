@@ -109,8 +109,8 @@
         </div>
 
         <div class="panel">
-            <div class="table-responsive">
-                <table id="tableMovs" class="table table-hover" width="100%" style="margin-top: 0px;margin-bottom: 0px">
+            <div class="">
+                <table id="tableMovs" class="table table-hover" style="margin-top: 0px;margin-bottom: 0px">
                     <tbody>
                         <g:if test="${movements.size() == 0}">
                             <tr>
