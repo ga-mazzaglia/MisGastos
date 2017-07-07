@@ -52,7 +52,6 @@ class MovementListCommand {
         Date end = null;
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_MONTH, 1);
-        java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");
         ini = c.getTime().clearTime();
         use(groovy.time.TimeCategory) {
             end = ini + 1.month - 1.day + 23.hours + 59.minutes + 59.seconds
@@ -65,7 +64,6 @@ class MovementListCommand {
         Date end = null;
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_MONTH, 1);
-        java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");
         ini = c.getTime().clearTime();
         use(groovy.time.TimeCategory) {
             ini = ini - 1.month
@@ -80,17 +78,31 @@ class MovementListCommand {
         Date ini = null;
         Date end = null;
 
-        if (this.dateIni) {
-            ini = new Date().parse("dd/MM/yyyy", this.dateIni).clearTime()
-        } else {
-            ini = new Date().parse("dd/MM/yyyy", new Date().format("dd/MM/yyyy")).clearTime()
-        }
-
-        if (this.dateEnd) {
-            end = new Date().parse("dd/MM/yyyy HH:mm:ss", this.dateEnd + " 23:59:59")
-        } else {
-            use(groovy.time.TimeCategory) {
-                end = ini + 23.hours + 59.minutes + 59.seconds
+        try {
+            if (this.dateIni) {
+                ini = new Date().parse("dd/MM/yyyy", this.dateIni).clearTime()
+            } else {
+                ini = new Date().parse("dd/MM/yyyy", new Date().format("dd/MM/yyyy")).clearTime()
+            }
+            if (this.dateEnd) {
+                end = new Date().parse("dd/MM/yyyy HH:mm:ss", this.dateEnd + " 23:59:59")
+            } else {
+                use(groovy.time.TimeCategory) {
+                    end = ini + 23.hours + 59.minutes + 59.seconds
+                }
+            }
+        } catch (Exception) {
+            if (this.dateIni) {
+                ini = new Date().parse("yyyy-MM-dd", this.dateIni).clearTime()
+            } else {
+                ini = new Date().parse("yyyy-MM-dd", new Date().format("yyyy-MM-dd")).clearTime()
+            }
+            if (this.dateEnd) {
+                end = new Date().parse("yyyy-MM-dd HH:mm:ss", this.dateEnd + " 23:59:59")
+            } else {
+                use(groovy.time.TimeCategory) {
+                    end = ini + 23.hours + 59.minutes + 59.seconds
+                }
             }
         }
 
