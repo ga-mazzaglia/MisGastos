@@ -31,10 +31,6 @@ class AjaxController {
         Map result = [:];
         def args = params + request.JSON;
 
-        println "----"
-        println args
-        println "----"
-
         MovementEditCommand movementEdit = new MovementEditCommand();
         bindData(movementEdit, args);
         movementEdit.validate();

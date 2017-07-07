@@ -68,18 +68,20 @@
                                     </g:each>
                                 </div>
                             </div>
-                            <!-- tags -->
-                            <div class="form-group">
-                                <label>Tags</label>
-                                <br/>
-                                <g:each in="${tags}" var="tag">
-                                    <a onclick="movementDetailController.clickTag(${tag.id});" id="tag_${tag.id}" class="btn btn-${tag.id in mov?.tags*.id ? "success" : "primary"}"
-                                       style="margin-bottom: 5px;">
-                                        <i class="fa fa-tag"></i> ${tag.detail}
-                                    </a>
-                                </g:each>
-                                <div id="tags_selected" style="display: none"></div>
-                            </div>
+                            <g:if test="${tags.size()}">
+                                <!-- tags -->
+                                <div class="form-group">
+                                    <label>Tags</label>
+                                    <br/>
+                                    <g:each in="${tags}" var="tag">
+                                        <a onclick="movementDetailController.clickTag(${tag.id});" id="tag_${tag.id}" class="btn btn-${tag.id in mov?.tags*.id ? "success" : "primary"}"
+                                           style="margin-bottom: 5px;">
+                                            <i class="fa fa-tag"></i> ${tag.detail}
+                                        </a>
+                                    </g:each>
+                                    <div id="tags_selected" style="display: none"></div>
+                                </div>
+                            </g:if>
 
                             <div id="errorMessage"></div>
 

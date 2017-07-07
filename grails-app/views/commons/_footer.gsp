@@ -17,7 +17,7 @@
                 // popover
                 $("[data-toggle=popover]").popover();
 
-                if(Utils.isPhone()){
+                /*if(Utils.isPhone()){
                     jQuery(".datepicker")
                             .attr("type", "date")
                             .attr("format", "dd/MM/yyyy")
@@ -30,7 +30,12 @@
                         orientation: "bottom",
                         autoclose: true,
                     });
-                }
+                }*/
+                jQuery(".datepicker").datepicker({
+                    format: "dd/mm/yyyy",
+                    orientation: "bottom",
+                    autoclose: true,
+                });
 
                 jQuery(".alert .close").click(function () {
                     jQuery(this).parent(".alert").fadeOut();

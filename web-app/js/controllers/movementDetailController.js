@@ -92,8 +92,8 @@ var movementDetailController = {
                 location = "/movement/list"
             } else {
                 jQuery("#errorMessage").html(data.responseJSON.response.message);
+                jQuery("#buttons").show();
             }
-            jQuery("#buttons").show();
         })
     },
 
