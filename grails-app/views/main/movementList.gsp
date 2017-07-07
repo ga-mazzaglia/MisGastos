@@ -23,7 +23,7 @@
 
 <!-- /.row -->
 <div class="row">
-    <div class="col-lg-12 col-md-6">
+    <div id="movement_list" class="col-lg-12 col-md-6">
         <button type="button" class="btn btn-primary btn-bookin-add"
                 style="float: left;margin-top: -10px;margin-left: 10px;display: none">
             <i class="fa fa-search"></i>
@@ -110,7 +110,7 @@
 
         <div class="panel">
             <div class="table-responsive">
-                <table id="tableTurns" class="table table-hover" width="100%" style="margin-top: 0px;margin-bottom: 0px">
+                <table id="tableMovs" class="table table-hover" width="100%" style="margin-top: 0px;margin-bottom: 0px">
                     <tbody>
                         <g:if test="${movements.size() == 0}">
                             <tr>
@@ -137,7 +137,7 @@
                                             ${mov.userToDisplay}
                                         </div>
 
-                                        <div style="text-align: right;height: 40px;margin-top: 5px;padding-top: 2px;">
+                                        <div class="buttons">
                                             <g:if test="${mov.type.id == 2}">
                                                 <button class="btn btn-primary" type="button"
                                                         onclick="movementListController.showDetails(${mov.id})"

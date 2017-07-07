@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
+        <div id="movement_detail" class="panel panel-default">
             <div class="panel-heading">
                 Informaci&oacute;n
             </div>
@@ -83,6 +83,7 @@
                                 </div>
                             </g:if>
 
+                            <div id="successMessage"></div>
                             <div id="errorMessage"></div>
 
                             <hr/>

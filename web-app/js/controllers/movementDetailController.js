@@ -86,12 +86,16 @@ var movementDetailController = {
                 item.value = item.value.replace(".", ",")
             }
         });
+        jQuery("#errorMessage").html("").hide();
+        jQuery("#successMessage").html("guardando..").show();
+
         jQuery("#buttons").hide();
         Rest.doPost("/movement/save", args, function (data) {
             if (data.status == 200) {
                 location = "/movement/list"
             } else {
-                jQuery("#errorMessage").html(data.responseJSON.response.message);
+                jQuery("#successMessage").html("").hide();
+                jQuery("#errorMessage").html(data.responseJSON.response.message).show();
                 jQuery("#buttons").show();
             }
         })

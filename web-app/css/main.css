@@ -42,3 +42,30 @@ table tbody tr {
     border-top: 1px dashed lightgray;
     font-weight: bold;
 }
+
+#movement_detail #errorMessage {
+    color: red;
+    display: none;
+}
+
+#movement_detail #successMessage {
+    color: green;
+    display: none;
+}
+
+#movement_list .row-mov .buttons {
+    text-align: right;
+    height: 40px;
+    margin-top: 5px;
+    padding-top: 2px;
+}
+
+@media (max-width: 768px) {
+    #movement_list .row-mov .buttons {
+        float: right;
+    }
+    #movement_list #tableMovs {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
