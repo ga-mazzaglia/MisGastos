@@ -44,14 +44,14 @@
                 <div style="display: inline-table;">
                     <span>Fecha Inicio</span><br>
                     <span>
-                        <input type="text" id="dateIni" name="dateIni" class="form-control datepicker" style="width: 100px; text-align: center;" value="${params.dateIni}">
+                        <input type="text" format="dd/MM/yyyy" id="dateIni" name="dateIni" class="form-control datepicker" style="width: 100px; text-align: center;" value="${params.dateIni}">
                     </span>
                 </div>
 
                 <div style="display: inline-table;">
                     <span>Fecha End</span><br>
                     <span>
-                        <input type="text" id="dateEnd" name="dateEnd" class="form-control datepicker" style="width: 100px; text-align: center;" value="${params.dateEnd}">
+                        <input type="text" format="dd/MM/yyyy" id="dateEnd" name="dateEnd" class="form-control datepicker" style="width: 100px; text-align: center;" value="${params.dateEnd}">
                     </span>
                 </div>
 

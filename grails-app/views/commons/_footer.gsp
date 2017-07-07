@@ -18,7 +18,10 @@
                 $("[data-toggle=popover]").popover();
 
                 if(Utils.isPhone()){
-                    jQuery(".datepicker").attr("type", "date");
+                    jQuery(".datepicker")
+                            .attr("type", "date")
+                            .attr("format", "dd/MM/yyyy")
+                            .css("width", "150px");
                 } else {
                     // datepicker
                     jQuery(".datepicker").datepicker({
