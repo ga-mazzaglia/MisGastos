@@ -7,6 +7,9 @@ var movementListController = {
             jQuery("#btns_" + id).toggle();
         });
         movementListController.initSearchBox();
+        if(Utils.isPhone()){
+            jQuery(".btn-filter-period#lastmonth").hide()
+        }
     },
 
     edit: function (id) {

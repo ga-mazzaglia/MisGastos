@@ -38,7 +38,7 @@
             </a>
         </div>
 
-        <div id="search_content" style="background-color: #e0e0e0; padding: 10px;display: ;margin-bottom: 10px;">
+        <div id="search_content" style="background-color: #e0e0e0; padding: 10px;margin-bottom: 10px;">
             <form>
                 <div>
                     <div style="display: inline-table;">
@@ -62,30 +62,35 @@
                         </span>
                     </div>
                 </div>
+
                 <div style="padding-top: 10px;">
                     <input type="hidden" id="filter_perdiod" name="filter_perdiod" value="${params.filter_perdiod ?: "today"}"/>
                     <a class="btn btn-primary btn-filter-period"
+                       id="lastmonth"
                        data-filter="lastmonth"
                        data-toggle="tooltip" data-placement="bottom"
                        data-original-title="Ver movimientos del mes anterior">Mes anterior
                     </a>
                     <a class="btn btn-primary btn-filter-period"
+                       id="thismonth"
                        data-filter="thismonth"
                        data-toggle="tooltip" data-placement="bottom"
                        data-original-title="Ver movimientos de este mes">Este mes
                     </a>
                     <a class="btn btn-primary btn-filter-period"
+                       id="thisweek"
                        data-filter="thisweek"
                        data-toggle="tooltip" data-placement="bottom"
                        data-original-title="Ver movimientos de esta semana">Esta semana
                     </a>
                     <a class="btn btn-primary btn-filter-period"
+                       id="today"
                        data-filter="today"
                        data-toggle="tooltip" data-placement="bottom"
                        data-original-title="Ver movimientos de hoy">Hoy
                     </a>
 
-                    <div style="text-align: right;border-top: 1px solid grey;padding-top: 10px;margin-top: 10px">
+                    <div style="text-align: right;border-top: 1px solid grey;padding-top: 10px;">
                         <button id="btn-clear"
                                 type="button" class="btn btn-danger"
                                 data-toggle="tooltip" data-placement="bottom"

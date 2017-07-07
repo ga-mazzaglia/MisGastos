@@ -25,3 +25,7 @@ table tbody tr {
     vertical-align: middle;
     border-bottom: 1px solid #ddd;
 }
+
+.btn-filter-period {
+    margin-bottom: 10px;
+}
