@@ -26,7 +26,7 @@
     <div class="col-lg-12 col-md-6">
         <button type="button" class="btn btn-primary btn-bookin-add"
                 onclick="movementListController.showSearchBox()"
-                style="float: left;margin-top: -10px;margin-left: 10px;">
+                style="float: left;margin-top: -10px;margin-left: 10px;display: none">
             <i class="fa fa-search"></i>
         </button>
 
@@ -39,19 +39,19 @@
             </a>
         </div>
 
-        <div id="search_content" style="display: block;background-color: #e0e0e0; padding: 10px;display: none;margin-bottom: 10px;">
+        <div id="search_content" style="background-color: #e0e0e0; padding: 10px;display: ;margin-bottom: 10px;">
             <form>
                 <div style="display: inline-table;">
                     <span>Fecha Inicio</span><br>
                     <span>
-                        <input type="date" id="dateIni" name="dateIni" class="form-control datepicker" style="width: 100px; text-align: center;" value="${params.dateIni}">
+                        <input type="text" id="dateIni" name="dateIni" class="form-control datepicker" style="width: 100px; text-align: center;" value="${params.dateIni}">
                     </span>
                 </div>
 
                 <div style="display: inline-table;">
                     <span>Fecha End</span><br>
                     <span>
-                        <input type="date" id="dateEnd" name="dateEnd" class="form-control datepicker" style="width: 100px; text-align: center;" value="${params.dateEnd}">
+                        <input type="text" id="dateEnd" name="dateEnd" class="form-control datepicker" style="width: 100px; text-align: center;" value="${params.dateEnd}">
                     </span>
                 </div>
 
