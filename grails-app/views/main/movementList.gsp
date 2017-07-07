@@ -25,7 +25,6 @@
 <div class="row">
     <div class="col-lg-12 col-md-6">
         <button type="button" class="btn btn-primary btn-bookin-add"
-                onclick="movementListController.showSearchBox()"
                 style="float: left;margin-top: -10px;margin-left: 10px;display: none">
             <i class="fa fa-search"></i>
         </button>

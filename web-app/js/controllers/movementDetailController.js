@@ -15,11 +15,9 @@ var movementDetailController = {
             jQuery("#friends_added").html("");
             jQuery(".btn-friend").removeClass("btn-success");
             jQuery(".btn-friend").addClass("btn-default");
-            //movementDetailController.initFriends();
         });
         if (movementDetailController.MOV_INFO.date != "") {
             if(!Utils.isPhone()) {
-                alert("no es phone");
                 jQuery("[name=date]").datepicker({
                     date: movementDetailController.MOV_INFO.date
                 });

@@ -24,7 +24,7 @@
 
                             <!-- fecha -->
                             <div class="form-group">
-                                <input type="text" format="dd/MM/yyyy" class="form-control datepicker" placeholder="Fecha" name="date" value="${mov.date.format("yyyy-MM-dd")}">
+                                <input type="text" format="dd/MM/yyyy" class="form-control datepicker" placeholder="Fecha" name="date" value="${mov.date.format("dd/MM/yyyy")}">
                             </div>
                             <!-- descripcion -->
                             <div class="form-group">

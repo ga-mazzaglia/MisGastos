@@ -2,10 +2,6 @@ var movementListController = {
 
     init: function () {
         console.log("movementListController.init()");
-        /*$(".datepicker").datepicker({
-            format: "dd/mm/yyyy",
-            autoclose: true,
-        });*/
         jQuery(".row-mov").click(function () {
             var id = jQuery(this).attr("id");
             jQuery("#btns_" + id).toggle();
@@ -101,9 +97,7 @@ var movementListController = {
         if (jQuery("#dateIni").val() || jQuery("#dateEnd").val()) {
             showSearchBox = true;
         }
-        if(showSearchBox){
-            movementListController.showSearchBox();
-        } else {
+        if(!showSearchBox){
             jQuery(".btn-filter-period[data-filter=today]").addClass("btn-success");
         }
     },

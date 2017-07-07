@@ -233,7 +233,7 @@ class MovementService {
                 movement.user = loginService.getUserLogged();
             }
             movement.lastUpdate = new Date();
-            movement.date = new Date().parse("yyyy-MM-dd", movementEdit.date);
+            movement.date = new Date().parse("dd/MM/yyyy", movementEdit.date);
             movement.detail = movementEdit.detail;
             movement.amount = movementEdit.amount;
             movement.type = MovementType.get(movementEdit.type as Long);

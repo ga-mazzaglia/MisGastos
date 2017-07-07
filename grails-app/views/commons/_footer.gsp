@@ -25,7 +25,7 @@
                 } else {
                     // datepicker
                     jQuery(".datepicker").datepicker({
-                        format: "yyyy-mm-dd",
+                        format: "dd/mm/yyyy",
                         orientation: "bottom",
                         autoclose: true,
                     });
