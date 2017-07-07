@@ -29,7 +29,7 @@
             <i class="fa fa-search"></i>
         </button>
 
-        <div style="margin-top: -10px;padding-bottom: 12px;padding-right: 10px;text-align: right;">
+        <div style="margin-top: -10px;padding-bottom: 12px;text-align: right;">
             <a type="button" class="btn btn-success btn-bookin-add"
                href="/movement/create"
                data-toggle="tooltip" data-placement="bottom"
@@ -40,29 +40,30 @@
 
         <div id="search_content" style="background-color: #e0e0e0; padding: 10px;display: ;margin-bottom: 10px;">
             <form>
-                <div style="display: inline-table;">
-                    <span>Fecha Inicio</span><br>
-                    <span>
-                        <input type="text" format="dd/MM/yyyy" id="dateIni" name="dateIni" class="form-control datepicker" style="width: 100px; text-align: center;" value="${params.dateIni}">
-                    </span>
-                </div>
+                <div>
+                    <div style="display: inline-table;">
+                        <span>Fecha Inicio</span><br>
+                        <span>
+                            <input type="text" format="dd/MM/yyyy" id="dateIni" name="dateIni" class="form-control datepicker" style="width: 100px; text-align: center;" value="${params.dateIni}">
+                        </span>
+                    </div>
 
-                <div style="display: inline-table;">
-                    <span>Fecha End</span><br>
-                    <span>
-                        <input type="text" format="dd/MM/yyyy" id="dateEnd" name="dateEnd" class="form-control datepicker" style="width: 100px; text-align: center;" value="${params.dateEnd}">
-                    </span>
-                </div>
+                    <div style="display: inline-table;">
+                        <span>Fecha End</span><br>
+                        <span>
+                            <input type="text" format="dd/MM/yyyy" id="dateEnd" name="dateEnd" class="form-control datepicker" style="width: 100px; text-align: center;" value="${params.dateEnd}">
+                        </span>
+                    </div>
 
-                <div style="display: inline-table;">
-                    <span>Filtro</span><br>
-                    <span>
-                        <input type="text" id="search" name="search" class="form-control" value="${params.search}">
-                    </span>
+                    <div style="display: inline-table;">
+                        <span>Filtro</span><br>
+                        <span>
+                            <input type="text" id="search" name="search" class="form-control" value="${params.search}" style="width: 200px;">
+                        </span>
+                    </div>
                 </div>
-
                 <div style="padding-top: 10px;">
-                    <input type="hidden" id="filter_perdiod" name="filter_perdiod" value="${params.filter_perdiod?:"today"}"/>
+                    <input type="hidden" id="filter_perdiod" name="filter_perdiod" value="${params.filter_perdiod ?: "today"}"/>
                     <a class="btn btn-primary btn-filter-period"
                        data-filter="lastmonth"
                        data-toggle="tooltip" data-placement="bottom"
@@ -84,20 +85,20 @@
                        data-original-title="Ver movimientos de hoy">Hoy
                     </a>
 
-                    <button style="float: right; margin-left: 10px;"
-                            id="btn-search"
-                            type="submit" class="btn btn-primary"
-                            data-toggle="tooltip" data-placement="bottom"
-                            data-original-title="Buscar">
-                        <i class="fa fa-search"></i> Buscar
-                    </button>
-                    <button style="float: right;"
-                            id="btn-clear"
-                            type="button" class="btn btn-danger"
-                            data-toggle="tooltip" data-placement="bottom"
-                            data-original-title="Borrar búsqueda">
-                        <i class="fa fa-trash"></i> Borrar
-                    </button>
+                    <div style="text-align: right;border-top: 1px solid grey;padding-top: 10px;margin-top: 10px">
+                        <button id="btn-clear"
+                                type="button" class="btn btn-danger"
+                                data-toggle="tooltip" data-placement="bottom"
+                                data-original-title="Borrar búsqueda">
+                            <i class="fa fa-trash"></i> Borrar
+                        </button>
+                        <button id="btn-search"
+                                type="submit" class="btn btn-primary"
+                                data-toggle="tooltip" data-placement="bottom"
+                                data-original-title="Buscar">
+                            <i class="fa fa-search"></i> Buscar
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

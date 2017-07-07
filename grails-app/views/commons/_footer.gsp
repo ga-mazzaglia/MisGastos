@@ -22,6 +22,7 @@
                             .attr("type", "date")
                             .attr("format", "dd/MM/yyyy")
                             .css("width", "150px");
+
                 } else {
                     // datepicker
                     jQuery(".datepicker").datepicker({

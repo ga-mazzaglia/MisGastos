@@ -20,7 +20,5 @@
         <!-- /.navbar-header -->
 
         <g:render template="/commons/items/menu"/>
-
-        <g:render template="/commons/items/user_logued"/>
     </nav>
     <div id="page-wrapper" style="min-height: 800px;">

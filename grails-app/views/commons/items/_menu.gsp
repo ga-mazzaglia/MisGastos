@@ -2,7 +2,7 @@
 <% User userLogged = grailsApplication.mainContext.getBean("loginService").getUserLogged(); %>
 
 <div class="navbar-default sidebar" role="navigation">
-    <div class="sidebar-nav navbar-collapse">
+    <div class="sidebar-nav navbar-collapse collapse">
         <ul class="nav" id="side-menu">
             <li class="sidebar-search" style="display: none;">
                 <div class="input-group custom-search-form">
@@ -16,7 +16,7 @@
                 <!-- /input-group -->
             </li>
             <li class="center" style="padding: 10px;">
-                <img src="http://www.megatec.org.pe/wp-content/uploads/2016/03/Generic_Avatar-e1458146412169.png" width="100"/>
+                <img src="/images/avatar.png" width="100"/>
 
                 <div style="margin-top: 10px; font-weight: bold;">
                     ${userLogged.name}
