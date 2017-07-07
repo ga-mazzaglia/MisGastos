@@ -2,10 +2,10 @@ var movementListController = {
 
     init: function () {
         console.log("movementListController.init()");
-        $(".datepicker").datepicker({
+        /*$(".datepicker").datepicker({
             format: "dd/mm/yyyy",
             autoclose: true,
-        });
+        });*/
         jQuery(".row-mov").click(function () {
             var id = jQuery(this).attr("id");
             jQuery("#btns_" + id).toggle();
