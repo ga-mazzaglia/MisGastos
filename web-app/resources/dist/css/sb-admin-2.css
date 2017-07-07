@@ -111,6 +111,9 @@ body {
   .navbar-top-links .dropdown-alerts {
     margin-left: auto;
   }
+  #lastmonth {
+    display: none;
+  }
 }
 .btn-outline {
   color: inherit;

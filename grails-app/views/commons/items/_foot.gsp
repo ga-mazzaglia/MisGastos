@@ -19,3 +19,4 @@
 
 
 <script src="/js/datepicker/js/bootstrap-datepicker.js"></script>
+<link href="/js/datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
