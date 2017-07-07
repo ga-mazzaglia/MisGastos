@@ -18,9 +18,12 @@ var movementDetailController = {
             //movementDetailController.initFriends();
         });
         if (movementDetailController.MOV_INFO.date != "") {
-            jQuery("[name=date]").datepicker({
-                date: movementDetailController.MOV_INFO.date
-            });
+            if(!Utils.isPhone()) {
+                alert("no es phone");
+                jQuery("[name=date]").datepicker({
+                    date: movementDetailController.MOV_INFO.date
+                });
+            }
         }
         //movementDetailController.initFriends();
     },

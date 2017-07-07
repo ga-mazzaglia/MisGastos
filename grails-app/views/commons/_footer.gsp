@@ -17,12 +17,16 @@
                 // popover
                 $("[data-toggle=popover]").popover();
 
-                // datepicker
-                $(".datepicker").datepicker({
-                    format: "yyyy-mm-dd",
-                    orientation: "bottom",
-                    autoclose: true,
-                })//.datepicker('update', new Date());
+                if(Utils.isPhone()){
+                    jQuery(".datepicker").attr("type", "date");
+                } else {
+                    // datepicker
+                    jQuery(".datepicker").datepicker({
+                        format: "yyyy-mm-dd",
+                        orientation: "bottom",
+                        autoclose: true,
+                    });
+                }
 
                 jQuery(".alert .close").click(function () {
                     jQuery(this).parent(".alert").fadeOut();
