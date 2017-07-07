@@ -39,7 +39,7 @@
                             <!-- tipo -->
                             <div class="form-group" id="type">
                                 <label>Tipo</label>
-                                <select class="form-control" name="type">
+                                <select class="form-control" id="type" name="type">
                                     <g:each in="${movementTypes}" var="type">
                                         <option value="${type.id}" ${type.id == mov?.type?.id ? "selected" : ""}>${type.detail}</option>
                                     </g:each>
@@ -50,18 +50,31 @@
                                 <label>Amigos</label>
                                 <br/>
                                 <g:each in="${friends}" var="friend">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" value="${friend.id}" name="friends" ${friend.id in mov?.users*.id ? "checked" : ""}> ${friend.name}
-                                    </label>
-                                    <br/>
+                                    <div style="margin-bottom: 5px;">
+                                        <button id="btn-friend_${friend.id}" type="button"
+                                                class="btn btn-${friend.id in mov?.users*.id ? "success" : "default"} btn-circle btn-friend"
+                                                data-friend_id="${friend.id}"
+                                                onclick="movementDetailController.addFriend(${friend.id})">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                        ${friend.name}
+                                    </div>
                                 </g:each>
+                                <div id="friends_added" style="display: none">
+                                    <g:each in="${friends}" var="friend">
+                                        <g:if test="${friend.id in mov?.users*.id}">
+                                            <input name='friends' value="${friend.id}"/>
+                                        </g:if>
+                                    </g:each>
+                                </div>
                             </div>
                             <!-- tags -->
                             <div class="form-group">
                                 <label>Tags</label>
                                 <br/>
                                 <g:each in="${tags}" var="tag">
-                                    <a onclick="movementDetailController.clickTag(${tag.id});" id="tag_${tag.id}" class="btn btn-${tag.id in mov?.tags*.id ? "success" : "primary"}">
+                                    <a onclick="movementDetailController.clickTag(${tag.id});" id="tag_${tag.id}" class="btn btn-${tag.id in mov?.tags*.id ? "success" : "primary"}"
+                                       style="margin-bottom: 5px;">
                                         <i class="fa fa-tag"></i> ${tag.detail}
                                     </a>
                                 </g:each>
