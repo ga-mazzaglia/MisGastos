@@ -1,8 +1,8 @@
 <% def v = new Date().format("yyyyMMddHHmmss"); %>
 
 <!-- jQuery UI -->
-<script src="/resources/jquery-ui/jquery-ui.js"></script>
-<link href="/resources/jquery-ui/jquery-ui.css" rel="stylesheet">
+<script src="/resources/jquery-ui/jquery-ui.min.js"></script>
+<link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 
 <!-- Bootstrap Core JavaScript -->
 <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -18,5 +18,5 @@
 <script src="/js/Rest.js?v=${v}"></script>
 
 
-<script src="/js/datepicker/js/bootstrap-datepicker.js"></script>
-<link href="/js/datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
+<script src="/js/datepicker/js/bootstrap-datepicker.min.js"></script>
+<link href="/js/datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">

@@ -19,9 +19,9 @@
                                 <input class="form-control" placeholder="Contraseña" id="password" type="password" value="">
                             </div>
                             <div id="errorMessage" style="display: none;color: red;margin-bottom: 10px;"></div>
-                            <div id="successMessage" style="display: none;color: darkgreen;margin-bottom: 10px;"></div>
+                            <div id="successMessage" style="display: none;color: darkgreen;"></div>
                             <!-- Change this to a button or input when using this as a form -->
-                            <button onclick="loginController.signIn()" class="btn btn-lg btn-success btn-block">Entrar</button>
+                            <button id="btn-login" onclick="loginController.signIn()" class="btn btn-lg btn-success btn-block">Entrar</button>
                         </fieldset>
                     </form>
                 </div>

@@ -9,6 +9,7 @@ var loginController = {
             username: jQuery("#username").val(),
             password: jQuery("#password").val(),
         };
+        jQuery("#btn-login").hide();
         jQuery("#errorMessage").hide().html("");
         jQuery("#successMessage").html("verificando...").show();
         Rest.doPost("/signin", args, function (data) {
@@ -16,6 +17,7 @@ var loginController = {
             jQuery("#successMessage").hide().html("");
             if(data.status != 200){
                 jQuery("#errorMessage").html(data.responseJSON.response.message).show();
+                jQuery("#btn-login").show();
             } else {
                 jQuery("#successMessage").html("entrando...").show();
                 var back = Utils.getUrlParam("back")

@@ -99,6 +99,10 @@ body {
 .sidebar .nav-third-level li a {
   padding-left: 52px;
 }
+
+#lastmonth {
+  display: none;
+}
 @media (min-width: 768px) {
   .sidebar {
     z-index: 1;
@@ -112,7 +116,7 @@ body {
     margin-left: auto;
   }
   #lastmonth {
-    display: none;
+    display: inline-block;
   }
 }
 .btn-outline {
