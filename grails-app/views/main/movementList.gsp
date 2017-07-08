@@ -127,7 +127,6 @@
 
                                         <div style="float: right">
                                             $ ${new java.text.DecimalFormat("###,##0.00").format(mov.amount)}
-                                            <g:if test="${mov.users.size()}">(*)</g:if>
                                         </div>
 
                                         <div style="clear: both"></div>
