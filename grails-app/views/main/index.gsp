@@ -16,7 +16,7 @@
         <g:if test="${items.status == org.apache.http.HttpStatus.SC_OK}">
             <g:each in="${items.response}" var="item">
 
-                <div class="panel panel-${item.amount >= 0 ? "green" : "red"}">
+                <div class="panel panel-${item.amount >= 0 ? "red" : "green"}">
                     <div class="panel-heading">
                         <div class="row"
                              data-toggle="tooltip" data-placement="bottom"
