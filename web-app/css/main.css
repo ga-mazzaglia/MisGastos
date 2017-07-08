@@ -67,4 +67,20 @@ table tbody tr {
     #movement_list #tableMovs {
         margin-right: 15px;
     }
+    #search_content #search_custom_filters #search {
+        width: 100%;
+    }
+    #search_content #search_custom_filters #dateIni {
+        width: 49%;
+    }
+    #search_content #search_custom_filters #dateEnd {
+        width: 49%;
+    }
+    #search_perdiod_btns .btn {
+        width: 32.33%;
+        text-align: center;
+    }
+}
+#search_perdiod_btns {
+    margin-top: 10px;
 }

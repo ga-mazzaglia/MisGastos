@@ -40,16 +40,16 @@
 
         <div id="search_content" style="background-color: #e0e0e0; padding: 10px;margin-bottom: 10px;">
             <form>
-                <div>
+                <div id="search_custom_filters">
                     <div style="display: inline-table;">
-                        <span>Fecha Inicio</span><br>
+                        <span>Fecha desde</span><br>
                         <span>
                             <input type="text" format="dd/MM/yyyy" id="dateIni" name="dateIni" class="form-control datepicker" value="${params.dateIni}" readonly style="background-color: white;width: 100px; text-align: center;">
                         </span>
                     </div>
 
                     <div style="display: inline-table;">
-                        <span>Fecha fin</span><br>
+                        <span>Fecha hasta</span><br>
                         <span>
                             <input type="text" format="dd/MM/yyyy" id="dateEnd" name="dateEnd" class="form-control datepicker" value="${params.dateEnd}" readonly style="background-color: white;width: 100px; text-align: center;" >
                         </span>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <div style="padding-top: 10px;">
+                <div id="search_perdiod_btns">
                     <input type="hidden" id="filter_perdiod" name="filter_perdiod" value="${params.filter_perdiod ?: "today"}"/>
                     <a class="btn btn-primary btn-filter-period"
                        id="lastmonth"
@@ -89,21 +89,21 @@
                        data-toggle="tooltip" data-placement="bottom"
                        data-original-title="Ver movimientos de hoy">Hoy
                     </a>
+                </div>
 
-                    <div style="text-align: right;border-top: 1px solid grey;padding-top: 10px;">
-                        <button id="btn-clear"
-                                type="button" class="btn btn-danger"
-                                data-toggle="tooltip" data-placement="bottom"
-                                data-original-title="Borrar búsqueda">
-                            <i class="fa fa-trash"></i> Borrar
-                        </button>
-                        <button id="btn-search"
-                                type="submit" class="btn btn-primary"
-                                data-toggle="tooltip" data-placement="bottom"
-                                data-original-title="Buscar">
-                            <i class="fa fa-search"></i> Buscar
-                        </button>
-                    </div>
+                <div style="text-align: right;border-top: 1px solid grey;padding-top: 10px;">
+                    <button id="btn-clear"
+                            type="button" class="btn btn-danger"
+                            data-toggle="tooltip" data-placement="bottom"
+                            data-original-title="Borrar búsqueda">
+                        <i class="fa fa-trash"></i> Borrar
+                    </button>
+                    <button id="btn-search"
+                            type="submit" class="btn btn-primary"
+                            data-toggle="tooltip" data-placement="bottom"
+                            data-original-title="Buscar">
+                        <i class="fa fa-search"></i> Buscar
+                    </button>
                 </div>
             </form>
         </div>
