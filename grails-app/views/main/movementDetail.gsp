@@ -34,7 +34,7 @@
                             <div class="form-group input-group">
                                 <span class="input-group-addon"><i class="fa fa-dollar"></i>
                                 </span>
-                                <input type="number" class="form-control" placeholder="Importe" name="amount" value="${mov.amount ?: ""}">
+                                <input type="decimal" class="form-control" placeholder="Importe" name="amount" value="${mov.amount ?: ""}">
                             </div>
                             <!-- tipo -->
                             <div class="form-group" id="type">
