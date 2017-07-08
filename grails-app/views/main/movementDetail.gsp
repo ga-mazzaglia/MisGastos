@@ -32,9 +32,8 @@
                             </div>
                             <!-- monto -->
                             <div class="form-group input-group">
-                                <span class="input-group-addon"><i class="fa fa-dollar"></i>
-                                </span>
-                                <input type="decimal" class="form-control" placeholder="Importe" name="amount" value="${mov.amount ?: ""}">
+                                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                <input type="number" step="any" class="form-control" placeholder="Importe" name="amount" value="${mov.amount ?: ""}">
                             </div>
                             <!-- tipo -->
                             <div class="form-group" id="type">
@@ -86,7 +85,9 @@
                             <hr/>
 
                             <div id="successMessage"></div>
+
                             <div id="errorMessage"></div>
+
                             <div id="buttons">
                                 <button type="submit" class="btn btn-success">Guardar</button>
                                 <a href="/movement/list" class="btn btn-danger">Cancelar</a>
