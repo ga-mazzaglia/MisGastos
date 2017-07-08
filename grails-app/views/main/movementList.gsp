@@ -51,7 +51,7 @@
                     <div style="display: inline-table;">
                         <span>Fecha hasta</span><br>
                         <span>
-                            <input type="text" format="dd/MM/yyyy" id="dateEnd" name="dateEnd" class="form-control datepicker" value="${params.dateEnd}" readonly style="background-color: white;width: 100px; text-align: center;" >
+                            <input type="text" format="dd/MM/yyyy" id="dateEnd" name="dateEnd" class="form-control datepicker" value="${params.dateEnd}" readonly style="background-color: white;width: 100px; text-align: center;">
                         </span>
                     </div>
 
@@ -110,15 +110,15 @@
 
         <div class="panel">
             <div class="table-responsive">
-                <table id="tableMovs" class="table table-hover" width="100%" style="margin-top: 0px;margin-bottom: 0px">
+                <table id="tableMovs" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" width="100%" style="margin-top: 0px;margin-bottom: 0px">
                     <tbody>
                         <g:if test="${movements.size() == 0}">
                             <tr>
                                 <td class="center">no hay movimientos</td>
                             </tr>
                         </g:if>
-                        <g:each in="${movements}" var="mov">
-                            <tr class="row-mov" id="${mov.id}">
+                        <g:each in="${movements}" var="mov" status="i">
+                            <tr class="row-mov gradeA ${i % 2 ? "odd" : "even"}" id="${mov.id}">
                                 <td style="color: ${mov.color};">
                                     <div>
                                         <div style="float: left">

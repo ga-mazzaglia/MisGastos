@@ -83,11 +83,10 @@
                                 </div>
                             </g:if>
 
-                            <div id="successMessage"></div>
-                            <div id="errorMessage"></div>
-
                             <hr/>
 
+                            <div id="successMessage"></div>
+                            <div id="errorMessage"></div>
                             <div id="buttons">
                                 <button type="submit" class="btn btn-success">Guardar</button>
                                 <a href="/movement/list" class="btn btn-danger">Cancelar</a>
