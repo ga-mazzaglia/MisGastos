@@ -152,14 +152,11 @@ class MovementListCommand {
         Map result = [:];
         if (this.dateIni || this.dateEnd) {
             result = this.getPeriodCustom();
-        }
-        if (this.isFilterPeriodThisWeek()) {
+        } else if (this.isFilterPeriodThisWeek()) {
             result = this.getPeriodThisWeek();
-        }
-        if (this.isFilterPeriodThisMonth()) {
+        } else if (this.isFilterPeriodThisMonth()) {
             result = this.getPeriodThisMonth();
-        }
-        if (this.isFilterPeriodLastMonth()) {
+        } else if (this.isFilterPeriodLastMonth()) {
             result = this.getPeriodLastMonth();
         }
         if (result.size() == 0) {
