@@ -5,6 +5,7 @@ import com.cuentasclaras.commands.MovementEditCommand
 import com.cuentasclaras.commands.MovementListCommand
 import com.cuentasclaras.statics.MovementsType
 import com.cuentasclaras.utils.Logger
+import grails.util.Environment
 import org.apache.http.HttpStatus
 
 class MovementService {
@@ -156,6 +157,15 @@ class MovementService {
         Date dateIni = period.ini;
         Date dateEnd = period.end;
 
+        if(Environment.current == Environment.PRODUCTION) {
+            use(groovy.time.TimeCategory) {
+                dateIni -= 3.hours;
+            }
+            use(groovy.time.TimeCategory) {
+                dateEnd -= 3.hours;
+            }
+        }
+
         User userLogged = loginService.getUserLogged();
         List<Movement> movements;
         movements = Movement.findAll([sort: "date", order: "desc"]) {
@@ -232,14 +242,18 @@ class MovementService {
                 movement = new Movement();
                 movement.user = loginService.getUserLogged();
                 Date creationDate = new Date();
-                use(groovy.time.TimeCategory){
-                    creationDate -= 3.hours;
+                if(Environment.current == Environment.PRODUCTION) {
+                    use(groovy.time.TimeCategory) {
+                        creationDate -= 3.hours;
+                    }
                 }
                 movement.creationDate = creationDate;
             }
             Date lastUpdate = new Date();
-            use(groovy.time.TimeCategory){
-                lastUpdate -= 3.hours;
+            if(Environment.current == Environment.PRODUCTION) {
+                use(groovy.time.TimeCategory) {
+                    lastUpdate -= 3.hours;
+                }
             }
             movement.lastUpdate = lastUpdate;
             Date date = null;
@@ -248,8 +262,10 @@ class MovementService {
             } catch (Exception ex){
                 date = new Date().parse("yyyy-MM-dd", movementEdit.date);
             }
-            use(groovy.time.TimeCategory){
-                date -= 3.hours;
+            if(Environment.current == Environment.PRODUCTION) {
+                use(groovy.time.TimeCategory) {
+                    date -= 3.hours;
+                }
             }
             movement.date = date.clearTime();
             movement.detail = movementEdit.detail;
