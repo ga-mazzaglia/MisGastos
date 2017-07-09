@@ -157,11 +157,15 @@ class MovementService {
         Date dateIni = period.ini;
         Date dateEnd = period.end;
 
-        use(groovy.time.TimeCategory) {
-            dateIni -= 3.hours;
+        if (dateIni) {
+            use(groovy.time.TimeCategory) {
+                dateIni -= 3.hours;
+            }
         }
-        use(groovy.time.TimeCategory) {
-            dateEnd -= 3.hours;
+        if (dateEnd) {
+            use(groovy.time.TimeCategory) {
+                dateEnd -= 3.hours;
+            }
         }
 
         User userLogged = loginService.getUserLogged();

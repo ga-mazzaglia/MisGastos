@@ -21,6 +21,10 @@
     <!-- /.col-lg-12 -->
 </div>
 
+<div style="display: none">
+    ${new Date().format("dd-MM-yyyy HH:mm:ss")}
+</div>
+
 <!-- /.row -->
 <div class="row">
     <div id="movement_list" class="col-lg-12 col-md-6">
