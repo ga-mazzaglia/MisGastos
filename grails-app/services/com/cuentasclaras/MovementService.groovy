@@ -9,6 +9,7 @@ import org.apache.http.HttpStatus
 
 class MovementService {
 
+    def grailsApplication
     LoginService loginService;
 
     def MovementType[] getMovementTypes() {
@@ -238,13 +239,13 @@ class MovementService {
                 movement.user = loginService.getUserLogged();
                 Date creationDate = new Date();
                 use(groovy.time.TimeCategory) {
-                    creationDate = creationDate + (grailsApplication.config.timeZone).hours
+                    creationDate += (grailsApplication.config.timeZone).hours
                 }
                 movement.creationDate = creationDate;
             }
             Date lastUpdate = new Date();
             use(groovy.time.TimeCategory) {
-                lastUpdate = lastUpdate + (grailsApplication.config.timeZone).hours
+                lastUpdate += (grailsApplication.config.timeZone).hours
             }
             movement.lastUpdate = lastUpdate;
             Date date = null;
@@ -254,7 +255,7 @@ class MovementService {
                 date = new Date().parse("yyyy-MM-dd", movementEdit.date);
             }
             use(groovy.time.TimeCategory) {
-                date = date + (grailsApplication.config.timeZone).hours
+                date += (grailsApplication.config.timeZone).hours
             }
             movement.date = date.clearTime();
             movement.detail = movementEdit.detail;

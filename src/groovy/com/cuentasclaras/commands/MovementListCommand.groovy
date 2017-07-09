@@ -34,7 +34,7 @@ class MovementListCommand {
         Logger.trace([:], "Init getPeriodToday()");
         Date ini = new Date();
         use(groovy.time.TimeCategory) {
-            ini = ini + (grailsApplication.config.timeZone).hours
+            ini += (grailsApplication.config.timeZone).hours
         }
         ini = ini.clearTime();
         Date end = ini;
@@ -97,7 +97,11 @@ class MovementListCommand {
             if (this.dateIni) {
                 ini = new Date().parse("dd/MM/yyyy", this.dateIni)
             } else {
-                ini = new Date().parse("dd/MM/yyyy", new Date().format("dd/MM/yyyy"))
+                Date tmp = new Date();
+                use(groovy.time.TimeCategory) {
+                    tmp += (grailsApplication.config.timeZone).hours
+                }
+                ini = new Date().parse("dd/MM/yyyy", tmp.format("dd/MM/yyyy"))
             }
             ini = ini.clearTime();
             if (this.dateEnd) {
@@ -105,7 +109,7 @@ class MovementListCommand {
             } else {
                 end = new Date();
                 use(groovy.time.TimeCategory) {
-                    ini = ini + (grailsApplication.config.timeZone).hours
+                    end += (grailsApplication.config.timeZone).hours
                 }
                 end = end.clearTime();
                 use(groovy.time.TimeCategory) {
@@ -114,9 +118,13 @@ class MovementListCommand {
             }
         } catch (Exception) {
             if (this.dateIni) {
-                ini = new Date().parse("yyyy-MM-dd", this.dateIni).clearTime()
+                ini = new Date().parse("yyyy-MM-dd", this.dateIni)
             } else {
-                ini = new Date().parse("yyyy-MM-dd", new Date().format("yyyy-MM-dd")).clearTime()
+                Date tmp = new Date();
+                use(groovy.time.TimeCategory) {
+                    tmp += (grailsApplication.config.timeZone).hours
+                }
+                ini = new Date().parse("yyyy-MM-dd", tmp.format("yyyy-MM-dd"))
             }
             ini = ini.clearTime();
             if (this.dateEnd) {
@@ -124,7 +132,7 @@ class MovementListCommand {
             } else {
                 end = new Date();
                 use(groovy.time.TimeCategory) {
-                    ini = ini + (grailsApplication.config.timeZone).hours
+                    end += (grailsApplication.config.timeZone).hours
                 }
                 end = end.clearTime();
                 use(groovy.time.TimeCategory) {
@@ -132,7 +140,6 @@ class MovementListCommand {
                 }
             }
         }
-
         return [ini: ini, end: end];
     }
 
