@@ -99,15 +99,17 @@ class MovementListCommand {
             } else {
                 ini = new Date().parse("dd/MM/yyyy", new Date().format("dd/MM/yyyy"))
             }
-            use(groovy.time.TimeCategory) {
-                ini = ini + (grailsApplication.config.timeZone).hours
-            }
             ini = ini.clearTime();
             if (this.dateEnd) {
                 end = new Date().parse("dd/MM/yyyy HH:mm:ss", this.dateEnd + " 23:59:59")
             } else {
+                end = new Date();
                 use(groovy.time.TimeCategory) {
-                    end = ini + 23.hours + 59.minutes + 59.seconds
+                    ini = ini + (grailsApplication.config.timeZone).hours
+                }
+                end = end.clearTime();
+                use(groovy.time.TimeCategory) {
+                    end = end + 23.hours + 59.minutes + 59.seconds
                 }
             }
         } catch (Exception) {
@@ -116,15 +118,17 @@ class MovementListCommand {
             } else {
                 ini = new Date().parse("yyyy-MM-dd", new Date().format("yyyy-MM-dd")).clearTime()
             }
-            use(groovy.time.TimeCategory) {
-                ini = ini + (grailsApplication.config.timeZone).hours
-            }
             ini = ini.clearTime();
             if (this.dateEnd) {
                 end = new Date().parse("yyyy-MM-dd HH:mm:ss", this.dateEnd + " 23:59:59")
             } else {
+                end = new Date();
                 use(groovy.time.TimeCategory) {
-                    end = ini + 23.hours + 59.minutes + 59.seconds
+                    ini = ini + (grailsApplication.config.timeZone).hours
+                }
+                end = end.clearTime();
+                use(groovy.time.TimeCategory) {
+                    end = end + 23.hours + 59.minutes + 59.seconds
                 }
             }
         }
