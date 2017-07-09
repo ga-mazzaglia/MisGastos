@@ -157,13 +157,11 @@ class MovementService {
         Date dateIni = period.ini;
         Date dateEnd = period.end;
 
-        if(Environment.current == Environment.PRODUCTION) {
-            use(groovy.time.TimeCategory) {
-                dateIni -= 3.hours;
-            }
-            use(groovy.time.TimeCategory) {
-                dateEnd -= 3.hours;
-            }
+        use(groovy.time.TimeCategory) {
+            dateIni -= 3.hours;
+        }
+        use(groovy.time.TimeCategory) {
+            dateEnd -= 3.hours;
         }
 
         User userLogged = loginService.getUserLogged();
@@ -242,30 +240,24 @@ class MovementService {
                 movement = new Movement();
                 movement.user = loginService.getUserLogged();
                 Date creationDate = new Date();
-                if(Environment.current == Environment.PRODUCTION) {
-                    use(groovy.time.TimeCategory) {
-                        creationDate -= 3.hours;
-                    }
+                use(groovy.time.TimeCategory) {
+                    creationDate -= 3.hours;
                 }
                 movement.creationDate = creationDate;
             }
             Date lastUpdate = new Date();
-            if(Environment.current == Environment.PRODUCTION) {
-                use(groovy.time.TimeCategory) {
-                    lastUpdate -= 3.hours;
-                }
+            use(groovy.time.TimeCategory) {
+                lastUpdate -= 3.hours;
             }
             movement.lastUpdate = lastUpdate;
             Date date = null;
             try {
                 date = new Date().parse("dd/MM/yyyy", movementEdit.date);
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 date = new Date().parse("yyyy-MM-dd", movementEdit.date);
             }
-            if(Environment.current == Environment.PRODUCTION) {
-                use(groovy.time.TimeCategory) {
-                    date -= 3.hours;
-                }
+            use(groovy.time.TimeCategory) {
+                date -= 3.hours;
             }
             movement.date = date.clearTime();
             movement.detail = movementEdit.detail;
