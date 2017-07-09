@@ -49,9 +49,6 @@ class MovementListCommand {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         ini = c.getTime();
-        use(groovy.time.TimeCategory) {
-            ini = ini + (grailsApplication.config.timeZone).hours
-        }
         ini = ini.clearTime();
         use(groovy.time.TimeCategory) {
             end = ini + 6.days + 23.hours + 59.minutes + 59.seconds
@@ -65,9 +62,6 @@ class MovementListCommand {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_MONTH, 1);
         ini = c.getTime();
-        use(groovy.time.TimeCategory) {
-            ini = ini + (grailsApplication.config.timeZone).hours
-        }
         ini = ini.clearTime();
         use(groovy.time.TimeCategory) {
             end = ini + 1.month - 1.day + 23.hours + 59.minutes + 59.seconds
@@ -81,9 +75,6 @@ class MovementListCommand {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_MONTH, 1);
         ini = c.getTime();
-        use(groovy.time.TimeCategory) {
-            ini = ini + (grailsApplication.config.timeZone).hours
-        }
         ini = ini.clearTime();
         use(groovy.time.TimeCategory) {
             ini = ini - 1.month
@@ -154,22 +145,27 @@ class MovementListCommand {
     }
 
     public Map getFilterPeriod() {
-        Logger.trace([
-                timeZone: grailsApplication.config.timeZone
-        ], "TimeZone del server");
+        Map result = null;
         if (this.dateIni || this.dateEnd) {
-            return this.getPeriodCustom();
+            result = this.getPeriodCustom();
         }
         if (this.isFilterPeriodThisWeek()) {
-            return this.getPeriodThisWeek();
+            result = this.getPeriodThisWeek();
         }
         if (this.isFilterPeriodThisMonth()) {
-            return this.getPeriodThisMonth();
+            result = this.getPeriodThisMonth();
         }
         if (this.isFilterPeriodLastMonth()) {
-            return this.getPeriodLastMonth();
+            result = this.getPeriodLastMonth();
         }
-        return this.getPeriodToday();
+        if (result == null) {
+            result = this.getPeriodToday();
+        }
+        Logger.trace([
+                date_ini: result.ini.format("yyyy-MM-dd HH:mm:ss"),
+                date_end: result.end.format("yyyy-MM-dd HH:mm:ss")
+        ], "getFilterPeriod() result");
+        return result;
     }
 
     public Map getTheErrors() {
