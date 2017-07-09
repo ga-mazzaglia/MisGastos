@@ -157,16 +157,7 @@ class MovementService {
         Date dateIni = period.ini;
         Date dateEnd = period.end;
 
-        if (dateIni) {
-            use(groovy.time.TimeCategory) {
-                dateIni -= 3.hours;
-            }
-        }
-        if (dateEnd) {
-            use(groovy.time.TimeCategory) {
-                dateEnd -= 3.hours;
-            }
-        }
+        Logger.trace([date_ini: dateIni, date_end: dateEnd], "Filtros de fecha");
 
         User userLogged = loginService.getUserLogged();
         List<Movement> movements;

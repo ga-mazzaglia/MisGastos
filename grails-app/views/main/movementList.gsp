@@ -22,7 +22,13 @@
 </div>
 
 <div style="display: none">
-    ${new Date().format("dd-MM-yyyy HH:mm:ss")}
+    <%
+        Date date = new Date();
+        use(groovy.time.TimeCategory) {
+            date -= 3.hours;
+        }
+    %>
+    ${date.format("dd-MM-yyyy HH:mm:ss")}
 </div>
 
 <!-- /.row -->
