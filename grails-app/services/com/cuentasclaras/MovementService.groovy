@@ -231,13 +231,27 @@ class MovementService {
             if (!movement) {
                 movement = new Movement();
                 movement.user = loginService.getUserLogged();
+                Date creationDate = new Date();
+                use(groovy.time.TimeCategory){
+                    creationDate -= 3.hours;
+                }
+                movement.creationDate = creationDate;
             }
-            movement.lastUpdate = new Date();
+            Date lastUpdate = new Date();
+            use(groovy.time.TimeCategory){
+                lastUpdate -= 3.hours;
+            }
+            movement.lastUpdate = lastUpdate;
+            Date date = null;
             try {
-                movement.date = new Date().parse("dd/MM/yyyy", movementEdit.date);
+                date = new Date().parse("dd/MM/yyyy", movementEdit.date);
             } catch (Exception ex){
-                movement.date = new Date().parse("yyyy-MM-dd", movementEdit.date);
+                date = new Date().parse("yyyy-MM-dd", movementEdit.date);
             }
+            use(groovy.time.TimeCategory){
+                date -= 3.hours;
+            }
+            movement.date = date.clearTime();
             movement.detail = movementEdit.detail;
             movement.amount = movementEdit.amount;
             movement.type = MovementType.get(movementEdit.type as Long);
