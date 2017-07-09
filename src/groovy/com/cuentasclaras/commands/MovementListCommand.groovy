@@ -33,7 +33,7 @@ class MovementListCommand {
     public Map getPeriodToday() {
         Date ini = new Date();
         use(groovy.time.TimeCategory) {
-            ini -= 3.hours;
+            ini = ini + (grailsApplication.config.timeZone).hours
         }
         ini = ini.clearTime();
         Date end = ini;
@@ -50,7 +50,7 @@ class MovementListCommand {
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         ini = c.getTime();
         use(groovy.time.TimeCategory) {
-            ini -= 3.hours;
+            ini = ini + (grailsApplication.config.timeZone).hours
         }
         ini = ini.clearTime();
         use(groovy.time.TimeCategory) {
@@ -66,7 +66,7 @@ class MovementListCommand {
         c.set(Calendar.DAY_OF_MONTH, 1);
         ini = c.getTime();
         use(groovy.time.TimeCategory) {
-            ini -= 3.hours;
+            ini = ini + (grailsApplication.config.timeZone).hours
         }
         ini = ini.clearTime();
         use(groovy.time.TimeCategory) {
@@ -82,7 +82,7 @@ class MovementListCommand {
         c.set(Calendar.DAY_OF_MONTH, 1);
         ini = c.getTime();
         use(groovy.time.TimeCategory) {
-            ini -= 3.hours;
+            ini = ini + (grailsApplication.config.timeZone).hours
         }
         ini = ini.clearTime();
         use(groovy.time.TimeCategory) {
@@ -105,7 +105,7 @@ class MovementListCommand {
                 ini = new Date().parse("dd/MM/yyyy", new Date().format("dd/MM/yyyy"))
             }
             use(groovy.time.TimeCategory) {
-                ini -= 3.hours;
+                ini = ini + (grailsApplication.config.timeZone).hours
             }
             ini = ini.clearTime();
             if (this.dateEnd) {
@@ -122,7 +122,7 @@ class MovementListCommand {
                 ini = new Date().parse("yyyy-MM-dd", new Date().format("yyyy-MM-dd")).clearTime()
             }
             use(groovy.time.TimeCategory) {
-                ini -= 3.hours;
+                ini = ini + (grailsApplication.config.timeZone).hours
             }
             ini = ini.clearTime();
             if (this.dateEnd) {

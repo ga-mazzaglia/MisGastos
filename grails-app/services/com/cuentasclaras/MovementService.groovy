@@ -5,7 +5,6 @@ import com.cuentasclaras.commands.MovementEditCommand
 import com.cuentasclaras.commands.MovementListCommand
 import com.cuentasclaras.statics.MovementsType
 import com.cuentasclaras.utils.Logger
-import grails.util.Environment
 import org.apache.http.HttpStatus
 
 class MovementService {
@@ -239,13 +238,13 @@ class MovementService {
                 movement.user = loginService.getUserLogged();
                 Date creationDate = new Date();
                 use(groovy.time.TimeCategory) {
-                    creationDate -= 3.hours;
+                    creationDate = creationDate + (grailsApplication.config.timeZone).hours
                 }
                 movement.creationDate = creationDate;
             }
             Date lastUpdate = new Date();
             use(groovy.time.TimeCategory) {
-                lastUpdate -= 3.hours;
+                lastUpdate = lastUpdate + (grailsApplication.config.timeZone).hours
             }
             movement.lastUpdate = lastUpdate;
             Date date = null;
@@ -255,7 +254,7 @@ class MovementService {
                 date = new Date().parse("yyyy-MM-dd", movementEdit.date);
             }
             use(groovy.time.TimeCategory) {
-                date -= 3.hours;
+                date = date + (grailsApplication.config.timeZone).hours
             }
             movement.date = date.clearTime();
             movement.detail = movementEdit.detail;
