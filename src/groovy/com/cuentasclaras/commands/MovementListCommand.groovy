@@ -31,6 +31,7 @@ class MovementListCommand {
     }
 
     public Map getPeriodToday() {
+        Logger.trace([:], "Init getPeriodToday()");
         Date ini = new Date();
         use(groovy.time.TimeCategory) {
             ini = ini + (grailsApplication.config.timeZone).hours
@@ -44,6 +45,7 @@ class MovementListCommand {
     }
 
     public Map getPeriodThisWeek() {
+        Logger.trace([:], "Init getPeriodThisWeek()");
         Date ini = null;
         Date end = null;
         Calendar c = Calendar.getInstance();
@@ -57,6 +59,7 @@ class MovementListCommand {
     }
 
     public Map getPeriodThisMonth() {
+        Logger.trace([:], "Init getPeriodThisMonth()");
         Date ini = null;
         Date end = null;
         Calendar c = Calendar.getInstance();
@@ -70,6 +73,7 @@ class MovementListCommand {
     }
 
     public Map getPeriodLastMonth() {
+        Logger.trace([:], "Init getPeriodLastMonth()");
         Date ini = null;
         Date end = null;
         Calendar c = Calendar.getInstance();
@@ -86,9 +90,9 @@ class MovementListCommand {
     }
 
     public Map getPeriodCustom() {
+        Logger.trace([:], "Init getPeriodCustom()");
         Date ini = null;
         Date end = null;
-
         try {
             if (this.dateIni) {
                 ini = new Date().parse("dd/MM/yyyy", this.dateIni)
@@ -145,7 +149,7 @@ class MovementListCommand {
     }
 
     public Map getFilterPeriod() {
-        Map result = null;
+        Map result = [:];
         if (this.dateIni || this.dateEnd) {
             result = this.getPeriodCustom();
         }
@@ -158,7 +162,7 @@ class MovementListCommand {
         if (this.isFilterPeriodLastMonth()) {
             result = this.getPeriodLastMonth();
         }
-        if (result == null) {
+        if (result.size() == 0) {
             result = this.getPeriodToday();
         }
         Logger.trace([
