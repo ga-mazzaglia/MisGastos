@@ -157,7 +157,10 @@ class MovementService {
         Date dateIni = period.ini;
         Date dateEnd = period.end;
 
-        Logger.trace([date_ini: dateIni, date_end: dateEnd], "Filtros de fecha");
+        Logger.trace([
+                date_ini: dateIni.format("yyyy-MM-dd HH:mm:ss"),
+                date_end: dateEnd.format("yyyy-MM-dd HH:mm:ss")
+        ], "Filtros de fecha");
 
         User userLogged = loginService.getUserLogged();
         List<Movement> movements;

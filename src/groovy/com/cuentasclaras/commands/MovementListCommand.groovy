@@ -1,6 +1,8 @@
 package com.cuentasclaras.commands
 
+import com.cuentasclaras.utils.Logger
 import grails.converters.JSON
+import grails.util.Holders
 import grails.validation.Validateable
 
 /**
@@ -8,6 +10,8 @@ import grails.validation.Validateable
  */
 @Validateable
 class MovementListCommand {
+
+    def grailsApplication = Holders.applicationContext.getBean("grailsApplication")
 
     static String PERIOD_TODAY = "today"
     static String PERIOD_THISWEEK = "thisweek"
@@ -150,6 +154,9 @@ class MovementListCommand {
     }
 
     public Map getFilterPeriod() {
+        Logger.trace([
+                timeZone: grailsApplication.config.timeZone
+        ], "TimeZone del server");
         if (this.dateIni || this.dateEnd) {
             return this.getPeriodCustom();
         }
