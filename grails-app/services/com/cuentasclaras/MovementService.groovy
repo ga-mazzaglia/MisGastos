@@ -250,12 +250,9 @@ class MovementService {
             movement.lastUpdate = lastUpdate;
             Date date = null;
             try {
-                date = new Date().parse("dd/MM/yyyy", movementEdit.date);
+                date = new Date().parse("dd/MM/yyyy HH:mm:ss", movementEdit.date + " 00:00:00");
             } catch (Exception ex) {
-                date = new Date().parse("yyyy-MM-dd", movementEdit.date);
-            }
-            use(groovy.time.TimeCategory) {
-                date += (grailsApplication.config.timeZone).hours
+                date = new Date().parse("yyyy-MM-dd", movementEdit.date + " 00:00:00");
             }
             movement.date = date.clearTime();
             movement.detail = movementEdit.detail;
