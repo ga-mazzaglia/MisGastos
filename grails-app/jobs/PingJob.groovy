@@ -9,7 +9,7 @@ class PingJob {
     def grailsApplication
 
     static triggers = {
-        cron name: 'PingJob', cronExpression: "*/5 * * * * ?"
+        cron name: 'PingJob', cronExpression: "0 */1 * * * ?"
     }
 
     def group = "MyGroup"
@@ -23,7 +23,7 @@ class PingJob {
 
         try {
             RestBuilder builder = new RestBuilder();
-            Map result = builder.withUrl("http://localhost:8090/ping").build().doGet();
+            Map result = builder.withUrl("http://gamatest.herokuapp.com/ping").build().doGet();
             Logger.addRequestId();
             Logger.trace([
                     date  : date.format("yyyy-MM-dd HH:mm:ss"),
