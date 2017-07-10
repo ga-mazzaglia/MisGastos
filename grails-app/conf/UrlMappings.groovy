@@ -40,6 +40,14 @@ class UrlMappings {
             action = [GET: "movementDetail"]
         }
 
+        //-- PING --
+
+        "/ping"(controller: "Health", parseRequest: true) {
+            action = [GET: "ping"]
+        }
+
+        //-- GENERIC --
+
         "/$controller/$action?/$id?(.$format)?" {
             constraints {
                 // apply constraints here
