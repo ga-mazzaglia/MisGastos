@@ -28,8 +28,8 @@
             date -= 3.hours;
         }
     %>
-    ${System.getenv("SCOPE")}<br />
-    ${System.getProperty("SCOPE")}<br />
+    ${System.getenv("SCOPE")}<br/>
+    ${System.getProperty("SCOPE")}<br/>
     ${date.format("dd-MM-yyyy HH:mm:ss")}
 </div>
 

@@ -54,9 +54,14 @@ class MainController {
 
         MovementListCommand movementListCommand = new MovementListCommand();
         bindData(movementListCommand, args);
-        def movements = movementService.getList(movementListCommand);
+        def result = movementService.getList(movementListCommand);
+        println result
         render(view: "movementList", model: [
-                movements: movements
+                movements: result.movements,
+                period   : [
+                        dateIni: result.period.ini,
+                        dateEnd: result.period.end
+                ]
         ])
     }
 

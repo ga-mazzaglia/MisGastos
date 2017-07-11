@@ -9,7 +9,7 @@ class PingJob {
     def grailsApplication
 
     static triggers = {
-        //cron name: 'PingJob', cronExpression: "0 */1 * * * ?"
+        cron name: 'PingJob', cronExpression: "0 */1 * * * ?"
     }
 
     def group = "MyGroup"

@@ -150,7 +150,7 @@ class MovementService {
         }
     }
 
-    def List<Map> getList(MovementListCommand movementListCommand) {
+    def Map getList(MovementListCommand movementListCommand) {
         List<Map> results = [];
 
         Map period = movementListCommand.getFilterPeriod();
@@ -228,7 +228,7 @@ class MovementService {
             ];
         }
 
-        return results;
+        return [movements: results, period: period];
     }
 
     def Map save(MovementEditCommand movementEdit) {
