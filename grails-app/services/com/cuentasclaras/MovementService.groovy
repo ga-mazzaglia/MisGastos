@@ -294,12 +294,16 @@ class MovementService {
         try {
             Movement movement = Movement.get(movId);
             if (!movement) {
+                Date current = new Date();
+                use(groovy.time.TimeCategory) {
+                    current += (grailsApplication.config.timeZone).hours
+                }
                 User userLogged = loginService.getUserLogged();
                 movement = new Movement();
                 movement.user = userLogged;
-                movement.creationDate = new Date();
-                movement.lastUpdate = new Date();
-                movement.date = new Date();
+                movement.creationDate = current;
+                movement.lastUpdate = current;
+                movement.date = current;
                 movement.type = MovementType.get(1);
             }
             return [status: HttpStatus.SC_OK, response: movement.getValues()]
