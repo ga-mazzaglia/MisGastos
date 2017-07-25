@@ -11,10 +11,11 @@ var loginController = {
         };
         jQuery("#btn-login").hide();
         jQuery("#errorMessage").hide().html("");
-        jQuery("#successMessage").html("verificando...").show();
+        jQuery("#verifyMessage").html("verificando...").show();
         Rest.doPost("/signin", args, function (data) {
             jQuery("#errorMessage").hide().html("");
             jQuery("#successMessage").hide().html("");
+            jQuery("#verifyMessage").hide().html("");
             if(data.status != 200){
                 jQuery("#errorMessage").html(data.responseJSON.response.message).show();
                 jQuery("#btn-login").show();
