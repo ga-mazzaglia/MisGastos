@@ -47,14 +47,11 @@ class MovementListCommand {
     public Map getPeriodThisWeek() {
         Logger.trace([:], "Init getPeriodThisWeek()");
         Date ini = null;
-        Date end = null;
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        ini = c.getTime();
-        ini = ini.clearTime();
+        Date end = new Date();
         use(groovy.time.TimeCategory) {
-            end = ini + 6.days + 23.hours + 59.minutes + 59.seconds
+            ini = end - 7.days
         }
+        ini = ini.clearTime();
         return [ini: ini, end: end];
     }
 
