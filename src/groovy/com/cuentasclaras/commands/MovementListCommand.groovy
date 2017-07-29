@@ -170,7 +170,7 @@ class MovementListCommand {
             result = this.getPeriodLastMonth();
         }
         if (result.size() == 0) {
-            result = this.isFilterPeriodThisMonth();
+            result = this.getPeriodThisMonth();
         }
         Logger.trace([
                 date_ini: result.ini.format("yyyy-MM-dd HH:mm:ss"),
