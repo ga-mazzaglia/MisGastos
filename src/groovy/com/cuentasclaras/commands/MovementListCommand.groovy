@@ -160,7 +160,9 @@ class MovementListCommand {
         Map result = [:];
         if (this.dateIni || this.dateEnd) {
             result = this.getPeriodCustom();
-        } else if (this.isFilterPeriodThisWeek()) {
+        } else if (this.isFilterPeriodToday()) {
+            result = this.getPeriodToday();
+        } else  if (this.isFilterPeriodThisWeek()) {
             result = this.getPeriodThisWeek();
         } else if (this.isFilterPeriodThisMonth()) {
             result = this.getPeriodThisMonth();
@@ -168,7 +170,7 @@ class MovementListCommand {
             result = this.getPeriodLastMonth();
         }
         if (result.size() == 0) {
-            result = this.getPeriodToday();
+            result = this.isFilterPeriodThisMonth();
         }
         Logger.trace([
                 date_ini: result.ini.format("yyyy-MM-dd HH:mm:ss"),
