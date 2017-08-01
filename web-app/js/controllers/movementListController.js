@@ -105,7 +105,7 @@ var movementListController = {
             showSearchBox = true;
         }
         if (!showSearchBox) {
-            jQuery(".btn-filter-period[data-filter=today]").addClass("btn-success");
+            jQuery(".btn-filter-period[data-filter=thismonth]").addClass("btn-success");
         }
     },
 

@@ -27,7 +27,7 @@
 
                             <div class="col-xs-9 text-right">
                                 <div class="huge">
-                                    $ ${new java.text.DecimalFormat("###,##0.00").format(item.amount)}
+                                    $ ${new java.text.DecimalFormat("###,##0.00").format(item.amount < 0 ? item.amount * -1 : item.amount)}
                                 </div>
 
                                 <div>

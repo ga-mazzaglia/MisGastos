@@ -49,6 +49,9 @@ class MovementListCommand {
         Date ini = null;
         Date end = new Date();
         use(groovy.time.TimeCategory) {
+            end += (grailsApplication.config.timeZone).hours
+        }
+        use(groovy.time.TimeCategory) {
             ini = end - 7.days
         }
         ini = ini.clearTime();

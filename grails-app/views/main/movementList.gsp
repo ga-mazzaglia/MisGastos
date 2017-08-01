@@ -151,10 +151,8 @@
                                         <div class="buttons">
                                             <g:if test="${mov.type.id == 2}">
                                                 <button class="btn btn-primary" type="button"
-                                                        onclick="movementListController.showDetails(${mov.id})"
-                                                        data-toggle="tooltip" data-placement="bottom"
-                                                        data-original-title="Ver detalle">
-                                                    <i class="fa fa-gears"></i>
+                                                        onclick="movementListController.showDetails(${mov.id})">
+                                                    <i class="fa fa-list"></i>
                                                 </button>
                                             </g:if>
                                             <g:if test="${mov.user.id == userLogged.id}">
