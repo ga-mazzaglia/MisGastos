@@ -19,21 +19,26 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form id="movementDetail" action="javascript: movementDetailController.save();" role="form" method="POST">
+                        <form id="movementDetail" action="javascript: movementDetailController.save();" role="form"
+                              method="POST">
                             <input type="hidden" name="id" value="${mov?.id}">
 
                             <!-- fecha -->
                             <div class="form-group">
-                                <input type="text" format="dd/MM/yyyy" class="form-control datepicker" placeholder="Fecha" name="date" value="${mov.date.format("dd/MM/yyyy")}" readonly style="background-color: white;width: 100%">
+                                <input type="text" format="dd/MM/yyyy" class="form-control datepicker"
+                                       placeholder="Fecha" name="date" value="${mov.date.format("dd/MM/yyyy")}" readonly
+                                       style="background-color: white;width: 100%">
                             </div>
                             <!-- descripcion -->
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Descripción" autofocus name="detail" value="${mov.detail}">
+                                <input type="text" class="form-control" placeholder="Descripción" autofocus
+                                       name="detail" value="${mov.detail}">
                             </div>
                             <!-- monto -->
                             <div class="form-group input-group">
                                 <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                <input type="number" step="any" class="form-control" placeholder="Importe" name="amount" value="${mov.amount ?: ""}">
+                                <input type="number" step="any" class="form-control" placeholder="Importe" name="amount"
+                                       value="${mov.amount ?: ""}">
                             </div>
                             <!-- tipo -->
                             <div class="form-group" id="type">
@@ -73,12 +78,17 @@
                                     <label>Tags</label>
                                     <br/>
                                     <g:each in="${tags}" var="tag">
-                                        <a onclick="movementDetailController.clickTag(${tag.id});" id="tag_${tag.id}" class="btn btn-${tag.id in mov?.tags*.id ? "success" : "primary"}"
+                                        <a onclick="movementDetailController.clickTag(${tag.id});" id="tag_${tag.id}"
+                                           class="btn btn-${tag.id in mov?.tags*.id ? "success" : "primary"}"
                                            style="margin-bottom: 5px;">
                                             <i class="fa fa-tag"></i> ${tag.detail}
                                         </a>
                                     </g:each>
-                                    <div id="tags_selected" style="display: none"></div>
+                                    <div id="tags_selected" style="display: none;">
+                                        <g:each in="${mov.tags}" var="tag">
+                                            <input name="tags" value="${tag.id}" id="${tag.id}">
+                                        </g:each>
+                                    </div>
                                 </div>
                             </g:if>
 

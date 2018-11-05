@@ -145,6 +145,7 @@
 
                                         <div style="float: left;margin-top: 5px;">
                                             ${mov.detail}<br/>
+                                            ${mov.tags*.detail.join(", ")}<br/>
                                             ${mov.userToDisplay}
                                         </div>
 

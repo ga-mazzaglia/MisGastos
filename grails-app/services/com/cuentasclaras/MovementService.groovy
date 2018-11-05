@@ -224,7 +224,8 @@ class MovementService {
                     type         : mov.type.getValues(),
                     users        : mov.users*.getValues(),
                     color        : color,
-                    userToDisplay: userToDisplay
+                    userToDisplay: userToDisplay,
+                    tags: mov.tags,
             ];
         }
 
@@ -305,6 +306,7 @@ class MovementService {
                 movement.lastUpdate = current;
                 movement.date = current;
                 movement.type = MovementType.get(1);
+                movement.tags = movement.tags;
             }
             return [status: HttpStatus.SC_OK, response: movement.getValues()]
         } catch (Exception ex) {
