@@ -1,19 +1,21 @@
 package com.cuentasclaras
 
 import grails.converters.JSON
+import grails.persistence.Entity
 
+@Entity
 class Movement {
 
-    User user;
-    Date creationDate = new Date();
-    Date lastUpdate = new Date();
-    Date date = new Date();
-    String detail = "";
-    Double amount;
-    Boolean deleted = false;
+    User user
+    Date creationDate = new Date()
+    Date lastUpdate = new Date()
+    Date date = new Date()
+    String detail = ""
+    Double amount
+    Boolean deleted = false
 
     static hasMany = [tags: Tag, users: User]
-    MovementType type;
+    MovementType type
 
     static mapping = {
         version false
@@ -34,9 +36,9 @@ class Movement {
 
     public Double getTotalAmount() {
         if (users.size()) {
-            return (this.amount / (users.size() + 1));
+            return (this.amount / (users.size() + 1))
         }
-        return this.amount;
+        return this.amount
     }
 
     public Map getValues() {
@@ -52,11 +54,11 @@ class Movement {
                 users       : users*.getValues(),
                 tags        : tags*.getValues(),
                 type        : type?.getValues(),
-        ];
+        ]
     }
 
     @Override
     public String toString() {
-        return this.getValues() as JSON;
+        return this.getValues() as JSON
     }
 }
