@@ -41,7 +41,7 @@ var movementListController = {
 
                 if (quantity != 0) {
                     userEquals = movementListController.userInfo.id == data.response.user.id ? "my_part" : "";
-                    html += "   <div class='row_mov_part "+userEquals+"'>";
+                    html += "   <div class='row_mov_part " + userEquals + "'>";
                     html += "       <div style='float: left;'>" + data.response.user.name + "</div>";
                     html += "       <div style='float: right;'>$ " + amount + "</div>";
                     html += "   </div>";
@@ -49,7 +49,7 @@ var movementListController = {
                 }
                 jQuery(data.response.users).each(function (index, item) {
                     userEquals = movementListController.userInfo.id == item.id ? "my_part" : "";
-                    html += "   <div class='row_mov_part "+userEquals+"'>";
+                    html += "   <div class='row_mov_part " + userEquals + "'>";
                     html += "       <div style='float: left;'>" + item.name + "</div>";
                     html += "       <div style='float: right;'>$ " + amount + "</div>";
                     html += "   </div>";
@@ -106,6 +106,25 @@ var movementListController = {
         }
         if (!showSearchBox) {
             jQuery(".btn-filter-period[data-filter=thismonth]").addClass("btn-success");
+        }
+    },
+
+    clickTag: function (id) {
+        var tag = "#tag_" + id;
+        if (jQuery(tag).hasClass("btn-primary")) {
+            jQuery(tag).removeClass("btn-primary").addClass("btn-success");
+        } else {
+            jQuery(tag).removeClass("btn-success").addClass("btn-primary");
+        }
+
+        if (jQuery(".btn-tag.btn-success").length != 0) {
+            jQuery(".btn-tag.btn-success").each(function (index, item) {
+                console.log(jQuery(item).attr("tag-id"))
+                jQuery(".row-mov").hide();
+                jQuery("." + id + "_tag").show();
+            });
+        } else {
+            jQuery(".row-mov").show();
         }
     },
 

@@ -56,27 +56,33 @@
                     <div style="display: inline-table;">
                         <span>Fecha desde</span><br>
                         <span>
-                            <input type="text" format="dd/MM/yyyy" id="dateIni" name="dateIni" class="form-control datepicker" value="${params.dateIni}" readonly style="background-color: white;width: 100px; text-align: center;">
+                            <input type="text" format="dd/MM/yyyy" id="dateIni" name="dateIni"
+                                   class="form-control datepicker" value="${params.dateIni}" readonly
+                                   style="background-color: white;width: 100px; text-align: center;">
                         </span>
                     </div>
 
                     <div style="display: inline-table;">
                         <span>Fecha hasta</span><br>
                         <span>
-                            <input type="text" format="dd/MM/yyyy" id="dateEnd" name="dateEnd" class="form-control datepicker" value="${params.dateEnd}" readonly style="background-color: white;width: 100px; text-align: center;">
+                            <input type="text" format="dd/MM/yyyy" id="dateEnd" name="dateEnd"
+                                   class="form-control datepicker" value="${params.dateEnd}" readonly
+                                   style="background-color: white;width: 100px; text-align: center;">
                         </span>
                     </div>
 
                     <div style="display: inline-table;">
                         <span>Filtro</span><br>
                         <span>
-                            <input type="text" id="search" name="search" class="form-control" value="${params.search}" style="width: 200px;">
+                            <input type="text" id="search" name="search" class="form-control" value="${params.search}"
+                                   style="width: 200px;">
                         </span>
                     </div>
                 </div>
 
                 <div id="search_perdiod_btns">
-                    <input type="hidden" id="filter_perdiod" name="filter_perdiod" value="${params.filter_perdiod ?: "today"}"/>
+                    <input type="hidden" id="filter_perdiod" name="filter_perdiod"
+                           value="${params.filter_perdiod ?: "today"}"/>
                     <a class="btn btn-primary btn-filter-period"
                        id="lastmonth"
                        data-filter="lastmonth"
@@ -103,6 +109,18 @@
                     </a>
                 </div>
 
+                <div>
+                    <g:each in="${tags}" var="tag">
+                        <a onclick="movementListController.clickTag(${tag.id});" id="tag_${tag.id}"
+                           class="btn btn-${tag.id in mov?.tags*.id ? "success" : "primary"} btn-tag"
+                           style="margin-bottom: 5px;"
+                           tag-id="${tag.id}"
+                           tag-detail="${tag.detail}">
+                            <i class="fa fa-tag"></i> ${tag.detail}
+                        </a>
+                    </g:each>
+                </div>
+
                 <div style="text-align: right;border-top: 1px solid grey;padding-top: 10px;">
                     <button id="btn-clear"
                             type="button" class="btn btn-danger"
@@ -122,61 +140,68 @@
 
         <div class="panel">
             <div class="table-responsive">
-                <table id="tableMovs" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" width="100%" style="margin-top: 0px;margin-bottom: 0px">
+                <table id="tableMovs"
+                       class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline"
+                       width="100%" style="margin-top: 0px;margin-bottom: 0px">
                     <tbody>
-                        <g:if test="${movements.size() == 0}">
-                            <tr>
-                                <td class="center">no hay movimientos</td>
-                            </tr>
-                        </g:if>
-                        <g:each in="${movements}" var="mov" status="i">
-                            <tr class="row-mov gradeA ${i % 2 ? "odd" : "even"}" id="${mov.id}">
-                                <td style="color: ${mov.color};">
-                                    <div>
-                                        <div style="float: left">
-                                            ${mov.date.format("dd-MM-yyyy")}
-                                        </div>
+                    <g:if test="${movements.size() == 0}">
+                        <tr>
+                            <td class="center">no hay movimientos</td>
+                        </tr>
+                    </g:if>
+                    <g:each in="${movements}" var="mov" status="i">
+                        <tr class="row-mov gradeA ${i % 2 ? "odd" : "even"} ${mov.tags*.id.join('_tag ')}_tag"
+                            id="${mov.id}">
+                            <td style="color: ${mov.color};">
+                                <div>
+                                    <div style="float: left">
+                                        ${mov.date.format("dd-MM-yyyy")}
+                                    </div>
 
-                                        <div style="float: right">
-                                            $ ${new java.text.DecimalFormat("###,##0.00").format(mov.amount)}
-                                        </div>
-
-                                        <div style="clear: both"></div>
-
-                                        <div style="float: left;margin-top: 5px;">
-                                            ${mov.detail}<br/>
-                                            ${mov.tags*.detail.join(", ")}<br/>
-                                            ${mov.userToDisplay}
-                                        </div>
-
-                                        <div class="buttons">
-                                            <g:if test="${mov.type.id == 2}">
-                                                <button class="btn btn-primary" type="button"
-                                                        onclick="movementListController.showDetails(${mov.id})">
-                                                    <i class="fa fa-list"></i>
-                                                </button>
-                                            </g:if>
-                                            <g:if test="${mov.user.id == userLogged.id}">
-                                                <button class="btn btn-primary" type="button"
-                                                        onclick="movementListController.edit(${mov.id})"
-                                                        data-toggle="tooltip" data-placement="bottom"
-                                                        data-original-title="Editar">
-                                                    <i class="fa fa-pencil"></i>
-                                                </button>
-                                                <button class="btn btn-danger" type="button"
-                                                        onclick="movementListController.delete(${mov.id})"
-                                                        data-toggle="tooltip" data-placement="bottom"
-                                                        data-original-title="Eliminar">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
-                                            </g:if>
-                                        </div>
+                                    <div style="float: right">
+                                        $ ${new java.text.DecimalFormat("###,##0.00").format(mov.amount)}
                                     </div>
 
                                     <div style="clear: both"></div>
-                                </td>
-                            </tr>
-                        </g:each>
+
+                                    <div style="float: left;margin-top: 5px;">
+                                        ${mov.detail}<br/>
+                                        ${mov.userToDisplay}
+                                        <g:each in="${mov.tags}" var="tag">
+                                            <span style="padding-right: 10px;color: grey;">
+                                                <i style="color: grey" class="fa fa-tag"></i> ${tag.detail}
+                                            </span>
+                                        </g:each>
+                                    </div>
+
+                                    <div class="buttons">
+                                        <g:if test="${mov.type.id == 2}">
+                                            <button class="btn btn-primary" type="button"
+                                                    onclick="movementListController.showDetails(${mov.id})">
+                                                <i class="fa fa-list"></i>
+                                            </button>
+                                        </g:if>
+                                        <g:if test="${mov.user.id == userLogged.id}">
+                                            <button class="btn btn-primary" type="button"
+                                                    onclick="movementListController.edit(${mov.id})"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    data-original-title="Editar">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-danger" type="button"
+                                                    onclick="movementListController.delete(${mov.id})"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    data-original-title="Eliminar">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </g:if>
+                                    </div>
+                                </div>
+
+                                <div style="clear: both"></div>
+                            </td>
+                        </tr>
+                    </g:each>
                     </tbody>
                 </table>
             </div>

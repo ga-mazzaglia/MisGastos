@@ -52,6 +52,7 @@ class MainController {
             return;
         }
 
+        def tags = movementService.getTags();
         MovementListCommand movementListCommand = new MovementListCommand();
         bindData(movementListCommand, args);
         def result = movementService.getList(movementListCommand);
@@ -61,7 +62,8 @@ class MainController {
                 period   : [
                         dateIni: result.period.ini,
                         dateEnd: result.period.end
-                ]
+                ],
+                tags     : tags
         ])
     }
 
