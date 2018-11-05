@@ -41,7 +41,7 @@ environments {
             jmxExport = true
 
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://93.188.160.43:3306/u452321268_cclar"
+            url = "jdbc:mysql://sql52.main-hosting.eu:3306/u452321268_cclar"
             username = "u452321268_cclar"
             password = "gabriel@123"
 
