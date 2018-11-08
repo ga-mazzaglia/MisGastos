@@ -35,7 +35,7 @@ class AjaxController {
         bindData(movementEdit, args);
         movementEdit.validate();
         Map errors = movementEdit.getTheErrors();
-        if(errors.size()){
+        if (errors.size()) {
             result = [status: HttpStatus.SC_BAD_REQUEST, response: [message: "$errors"]]
         } else {
             result = movementService.save(movementEdit);
@@ -53,7 +53,7 @@ class AjaxController {
         bindData(movementDelete, args);
         movementDelete.validate();
         Map errors = movementDelete.getTheErrors();
-        if(errors.size()){
+        if (errors.size()) {
             result = [status: HttpStatus.SC_BAD_REQUEST, response: [message: "$errors"]]
         } else {
             result = movementService.delete(movementDelete);
@@ -68,6 +68,16 @@ class AjaxController {
         def args = params + request.JSON;
 
         result = movementService.get(args.id as Long);
+        response.status = result.status;
+
+        render result as JSON
+    }
+
+    def movementAddTag() {
+        Map result = [:];
+        def args = params + request.JSON;
+
+        result = movementService.addTag(args.mov_id as Long, args.tag_id as Long, (args.added as Long) as Boolean);
         response.status = result.status;
 
         render result as JSON

@@ -12,13 +12,13 @@ class MovementService {
     def grailsApplication
     LoginService loginService;
 
-    def MovementType[] getMovementTypes() {
+    MovementType[] getMovementTypes() {
         return MovementType.findAll();
     }
 
-    def Tag[] getTags() {
+    Tag[] getTags() {
         User userLogged = loginService.getUserLogged();
-        return Tag.findAllByUser(userLogged);
+        return Tag.findAllByUser(userLogged, [sort: "order", order: "asc"]);
     }
 
     /**
@@ -26,7 +26,7 @@ class MovementService {
      *
      * @return
      */
-    def Map getDebtsByFriends() {
+    Map getDebtsByFriends() {
         try {
             List results = []
             Map amounts = [:];
@@ -150,7 +150,7 @@ class MovementService {
         }
     }
 
-    def Map getList(MovementListCommand movementListCommand) {
+    Map getList(MovementListCommand movementListCommand) {
         List<Map> results = [];
 
         Map period = movementListCommand.getFilterPeriod();
@@ -165,21 +165,26 @@ class MovementService {
         User userLogged = loginService.getUserLogged();
         List<Movement> movements;
         movements = Movement.findAll([sort: "date", order: "desc"]) {
-            deleted == false
-            user == userLogged
+            eq("deleted", false)
+            user.id == userLogged.id
             if (dateIni) {
-                date >= dateIni
+                ge("date", dateIni)
             }
             if (dateEnd) {
-                date <= dateEnd
+                le("date", dateEnd)
             }
             if (movementListCommand.search) {
                 like("detail", "%${movementListCommand.search}%")
+            }
+            if (movementListCommand?.tags?.size()) {
+                tags.id in movementListCommand.tags
             }
         }
         movements += Movement.findAll([sort: "date", order: "desc"]) {
-            deleted == false
-            users.id == userLogged.id
+            eq("deleted", false)
+            'users' {
+                eq("id", userLogged.id)
+            }
             if (dateIni) {
                 date >= dateIni
             }
@@ -188,6 +193,9 @@ class MovementService {
             }
             if (movementListCommand.search) {
                 like("detail", "%${movementListCommand.search}%")
+            }
+            if (movementListCommand?.tags?.size()) {
+                tags.id in movementListCommand.tags
             }
         }
 
@@ -195,14 +203,18 @@ class MovementService {
 
         movements.each { Movement mov ->
             String color = "";
+            Double userAmount = mov.amount;
+
             if (mov.type.id in (Long[]) [1]) { // gasto personal
                 color = "blue";
             }
             if (mov.type.id in (Long[]) [2, 3]) { // gastos compartidos | dinero entregado
                 color = mov.user.id == userLogged.id ? "red" : "green";
+                userAmount = mov.user.id == userLogged.id ? (userAmount * -1) : userAmount;
             }
             if (mov.type.id in (Long[]) [4]) { // dinero recibido
                 color = mov.user.id == userLogged.id ? "green" : "red";
+                userAmount = mov.user.id == userLogged.id ? userAmount : (userAmount * -1);
             }
 
             String userToDisplay = "";
@@ -210,6 +222,10 @@ class MovementService {
                 userToDisplay = mov.users*.name.join(", ")
             } else {
                 userToDisplay = mov.user.name
+            }
+
+            if (mov.users.size() != 0) {
+                userAmount = userAmount / (mov.users.size() + 1)
             }
 
             results << [
@@ -220,19 +236,20 @@ class MovementService {
                     date         : mov.date,
                     detail       : mov.detail,
                     amount       : mov.amount,
+                    userAmount   : userAmount,
                     deleted      : mov.deleted,
                     type         : mov.type.getValues(),
                     users        : mov.users*.getValues(),
                     color        : color,
                     userToDisplay: userToDisplay,
-                    tags: mov.tags,
+                    tags         : mov.tags.sort { it.order },
             ];
         }
 
         return [movements: results, period: period];
     }
 
-    def Map save(MovementEditCommand movementEdit) {
+    Map save(MovementEditCommand movementEdit) {
         try {
             Movement movement = Movement.get(movementEdit.id);
             if (!movement) {
@@ -278,7 +295,7 @@ class MovementService {
         }
     }
 
-    def Map delete(MovementDeleteCommand movementDelete) {
+    Map delete(MovementDeleteCommand movementDelete) {
         try {
             Movement movement = Movement.get(movementDelete.id);
             movement.deleted = true;
@@ -291,7 +308,7 @@ class MovementService {
         }
     }
 
-    def Map get(Long movId) {
+    Map get(Long movId) {
         try {
             Movement movement = Movement.get(movId);
             if (!movement) {
@@ -312,6 +329,30 @@ class MovementService {
         } catch (Exception ex) {
             ex.printStackTrace();
             Logger.error([id: movId], "MovementService.get() Exception: " + ex.getMessage());
+            return [status: HttpStatus.SC_INTERNAL_SERVER_ERROR, response: [message: ex.getMessage()]]
+        }
+    }
+
+    Map addTag(Long movId, Long tagId, Boolean added) {
+        try {
+            Movement movement = Movement.get(movId);
+            if (movement) {
+                Date current = new Date();
+                use(groovy.time.TimeCategory) {
+                    current += (grailsApplication.config.timeZone).hours
+                }
+                movement.lastUpdate = current;
+                Tag tag = Tag.get(tagId)
+                if (added)
+                    movement.tags.add(tag)
+                else
+                    movement.tags.remove(tag)
+                movement.save(flush: true, failOnError: true)
+            }
+            return [status: HttpStatus.SC_OK, response: movement.getValues()]
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.error([id: movId], "MovementService.addTag() Exception: " + ex.getMessage());
             return [status: HttpStatus.SC_INTERNAL_SERVER_ERROR, response: [message: ex.getMessage()]]
         }
     }

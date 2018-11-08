@@ -39,6 +39,9 @@ class UrlMappings {
         "/ajax/movement/$id?"(controller: "Ajax", parseRequest: true) {
             action = [GET: "movementDetail"]
         }
+        "/ajax/movement/tag"(controller: "Ajax", parseRequest: true) {
+            action = [POST: "movementAddTag"]
+        }
 
         //-- PING --
 

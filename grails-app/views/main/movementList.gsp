@@ -27,10 +27,8 @@
         use(groovy.time.TimeCategory) {
             date -= 3.hours;
         }
+        Double total = 0;
     %>
-    ${System.getenv("SCOPE")}<br/>
-    ${System.getProperty("SCOPE")}<br/>
-    ${date.format("dd-MM-yyyy HH:mm:ss")}
 </div>
 
 <!-- /.row -->
@@ -82,7 +80,7 @@
 
                 <div id="search_perdiod_btns">
                     <input type="hidden" id="filter_perdiod" name="filter_perdiod"
-                           value="${params.filter_perdiod ?: "today"}"/>
+                           value="${params.filter_perdiod ?: com.cuentasclaras.commands.MovementListCommand.PERIOD_THISMONTH}"/>
                     <a class="btn btn-primary btn-filter-period"
                        id="lastmonth"
                        data-filter="lastmonth"
@@ -109,16 +107,25 @@
                     </a>
                 </div>
 
-                <div>
+                <div id="search_tags">
+                    <%
+                        List tagsFilter = [];
+                        params.tags.each { tagsFilter << it.toLong() }
+                    %>
                     <g:each in="${tags}" var="tag">
                         <a onclick="movementListController.clickTag(${tag.id});" id="tag_${tag.id}"
-                           class="btn btn-${tag.id in mov?.tags*.id ? "success" : "primary"} btn-tag"
+                           class="btn btn-${(tag.id in mov?.tags*.id) || (tag.id in tagsFilter) ? "success" : "primary"} btn-tag"
                            style="margin-bottom: 5px;"
                            tag-id="${tag.id}"
                            tag-detail="${tag.detail}">
                             <i class="fa fa-tag"></i> ${tag.detail}
                         </a>
                     </g:each>
+                    <div id="tags_filters">
+                        <g:each in="${params['tags']}" var="tag">
+                            <input type="hidden" name="tags" value="${tag}">
+                        </g:each>
+                    </div>
                 </div>
 
                 <div style="text-align: right;border-top: 1px solid grey;padding-top: 10px;">
@@ -150,8 +157,18 @@
                         </tr>
                     </g:if>
                     <g:each in="${movements}" var="mov" status="i">
+                        <%
+                            Double amount = 0;
+                            if (mov.users.size() == 0) {
+                                amount += mov.amount
+                            } else {
+                                amount += (mov.amount / (mov.users.size() + 1))
+                            }
+                            total += amount
+                        %>
                         <tr class="row-mov gradeA ${i % 2 ? "odd" : "even"} ${mov.tags*.id.join('_tag ')}_tag"
-                            id="${mov.id}">
+                            mov-id="${mov.id}"
+                            mov-amount="${amount}">
                             <td style="color: ${mov.color};">
                                 <div>
                                     <div style="float: left">
@@ -165,8 +182,10 @@
                                     <div style="clear: both"></div>
 
                                     <div style="float: left;margin-top: 5px;">
-                                        ${mov.detail}<br/>
-                                        ${mov.userToDisplay}
+                                        <span title="#${mov.id}">${mov.detail}</span><br/>
+                                        <g:if test="${mov.userToDisplay}">
+                                            ${mov.userToDisplay}<br />
+                                        </g:if>
                                         <g:each in="${mov.tags}" var="tag">
                                             <span style="padding-right: 10px;color: grey;">
                                                 <i style="color: grey" class="fa fa-tag"></i> ${tag.detail}
@@ -195,6 +214,14 @@
                                                 <i class="fa fa-minus"></i>
                                             </button>
                                         </g:if>
+                                        <g:else>
+                                            <button class="btn btn-primary" type="button"
+                                                    onclick="movementListController.showModalAddTags(${mov.id}, ${mov.tags*.id})"
+                                                    data-toggle="tooltip" data-placement="bottom"
+                                                    data-original-title="Agregar tags">
+                                                <i class="fa fa-tag"></i>
+                                            </button>
+                                        </g:else>
                                     </div>
                                 </div>
 
@@ -204,11 +231,29 @@
                     </g:each>
                     </tbody>
                 </table>
+
+                <table width="100%" class="table table-striped dataTable no-footer">
+                    <tbody>
+                    <tr>
+                        <td width="200" style="text-align: left">
+                            <strong>TOTAL:</strong>
+                        </td>
+
+                        <td style="text-align: right">
+                            <strong>$ <span
+                                    id="table-amount-total">${new java.text.DecimalFormat("###,##0.00").format(total)}</span>
+                            </strong>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <!-- /.table-responsive -->
         </div>
     </div>
 </div>
+
+<g:render template="/commons/items/movementDetailTagModal"/>
 
 <script src="/js/controllers/movementListController.js?v=${v}"></script>
 <script type="text/javascript">

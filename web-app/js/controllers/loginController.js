@@ -21,7 +21,7 @@ var loginController = {
                 jQuery("#btn-login").show();
             } else {
                 jQuery("#successMessage").html("entrando...").show();
-                var back = Utils.getUrlParam("back")
+                    var back = Utils.getUrlParam("back")
                 if(back != null && back){
                     location = back;
                 } else {

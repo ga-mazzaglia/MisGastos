@@ -22,6 +22,7 @@ class MovementListCommand {
     String filter_perdiod
     String dateIni
     String dateEnd
+    List<Long> tags
 
     static constraints = {
         search(nullable: true, blank: true)
@@ -30,7 +31,7 @@ class MovementListCommand {
         dateEnd(nullable: true, blank: true)
     }
 
-    public Map getPeriodToday() {
+    Map getPeriodToday() {
         Logger.trace([:], "Init getPeriodToday()");
         Date ini = new Date();
         use(groovy.time.TimeCategory) {
@@ -44,7 +45,7 @@ class MovementListCommand {
         return [ini: ini, end: end];
     }
 
-    public Map getPeriodThisWeek() {
+    Map getPeriodThisWeek() {
         Logger.trace([:], "Init getPeriodThisWeek()");
         Date ini = null;
         Date end = new Date();
@@ -58,7 +59,7 @@ class MovementListCommand {
         return [ini: ini, end: end];
     }
 
-    public Map getPeriodThisMonth() {
+    Map getPeriodThisMonth() {
         Logger.trace([:], "Init getPeriodThisMonth()");
         Date ini = null;
         Date end = null;
@@ -72,7 +73,7 @@ class MovementListCommand {
         return [ini: ini, end: end];
     }
 
-    public Map getPeriodLastMonth() {
+    Map getPeriodLastMonth() {
         Logger.trace([:], "Init getPeriodLastMonth()");
         Date ini = null;
         Date end = null;
@@ -89,7 +90,7 @@ class MovementListCommand {
         return [ini: ini, end: end];
     }
 
-    public Map getPeriodCustom() {
+    Map getPeriodCustom() {
         Logger.trace([:], "Init getPeriodCustom()");
         Date ini = null;
         Date end = null;
@@ -143,29 +144,29 @@ class MovementListCommand {
         return [ini: ini, end: end];
     }
 
-    public boolean isFilterPeriodToday() {
+    boolean isFilterPeriodToday() {
         return this.filter_perdiod == PERIOD_TODAY;
     }
 
-    public boolean isFilterPeriodThisWeek() {
+    boolean isFilterPeriodThisWeek() {
         return this.filter_perdiod == PERIOD_THISWEEK;
     }
 
-    public boolean isFilterPeriodThisMonth() {
+    boolean isFilterPeriodThisMonth() {
         return this.filter_perdiod == PERIOD_THISMONTH;
     }
 
-    public boolean isFilterPeriodLastMonth() {
+    boolean isFilterPeriodLastMonth() {
         return this.filter_perdiod == PERIOD_LASTMONTH;
     }
 
-    public Map getFilterPeriod() {
+    Map getFilterPeriod() {
         Map result = [:];
         if (this.dateIni || this.dateEnd) {
             result = this.getPeriodCustom();
         } else if (this.isFilterPeriodToday()) {
             result = this.getPeriodToday();
-        } else  if (this.isFilterPeriodThisWeek()) {
+        } else if (this.isFilterPeriodThisWeek()) {
             result = this.getPeriodThisWeek();
         } else if (this.isFilterPeriodThisMonth()) {
             result = this.getPeriodThisMonth();
@@ -182,7 +183,7 @@ class MovementListCommand {
         return result;
     }
 
-    public Map getTheErrors() {
+    Map getTheErrors() {
         Map result = [:];
         this.getErrors().getFieldErrors().each { e ->
             String field = e.field.capitalize()
@@ -191,17 +192,18 @@ class MovementListCommand {
         return result
     }
 
-    public Map getValues() {
+    Map getValues() {
         return [
                 search        : search,
                 filter_perdiod: filter_perdiod,
                 dateIni       : dateIni,
                 dateEnd       : dateEnd,
+                tags          : tags,
         ];
     }
 
     @Override
-    public String toString() {
+    String toString() {
         return this.getValues() as JSON;
     }
 

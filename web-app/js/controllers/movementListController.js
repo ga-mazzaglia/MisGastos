@@ -30,6 +30,33 @@ var movementListController = {
         });
     },
 
+    showModalAddTags: function (id, tagsId) {
+        jQuery("#movAddTagId").val(id)
+        jQuery.each(tagsId, function (index, value) {
+            jQuery("#modal_tag_" + value).removeClass("btn-primary").addClass("btn-success");
+        })
+
+        jQuery("#tagsModal").click()
+    },
+
+    clickAddTag: function (item, tagId) {
+        var add = false;
+        if (jQuery(item).hasClass("btn-primary")) {
+            jQuery(item).removeClass("btn-primary").addClass("btn-success");
+            jQuery("#tags_selected").append("<input name='tags' value='" + tagId + "' id='" + tagId + "'/>");
+            add = 1;
+        } else {
+            jQuery(item).removeClass("btn-success").addClass("btn-primary");
+            jQuery("#tags_selected #" + tagId).remove();
+            add = 0;
+        }
+        var movId = jQuery("#movAddTagId").val()
+
+        Rest.doPost("/movement/tag", {mov_id: movId, tag_id: tagId, added: add}, function (data) {
+            console.log(data);
+        })
+    },
+
     showDetails: function (id) {
         Rest.doGet("/movement/" + id, function (data) {
             console.log(data.response);
@@ -118,14 +145,21 @@ var movementListController = {
         }
 
         if (jQuery(".btn-tag.btn-success").length != 0) {
+            jQuery("#tags_filters").html("");
+            var tags = [];
             jQuery(".btn-tag.btn-success").each(function (index, item) {
-                console.log(jQuery(item).attr("tag-id"))
-                jQuery(".row-mov").hide();
-                jQuery("." + id + "_tag").show();
+                tags.push(jQuery(item).attr("tag-id"))
+                jQuery("#tags_filters").append("<input type='hidden' name='tags' value='" + jQuery(item).attr("tag-id") + "'>");
             });
+            jQuery("#btn-search").click();
         } else {
-            jQuery(".row-mov").show();
+            jQuery("#tags_filters").html("");
+            jQuery("#btn-search").click();
         }
+    },
+
+    refresh: function () {
+        location.reload(true)
     },
 
 }

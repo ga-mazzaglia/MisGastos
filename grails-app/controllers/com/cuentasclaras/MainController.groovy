@@ -56,7 +56,6 @@ class MainController {
         MovementListCommand movementListCommand = new MovementListCommand();
         bindData(movementListCommand, args);
         def result = movementService.getList(movementListCommand);
-        println result
         render(view: "movementList", model: [
                 movements: result.movements,
                 period   : [
@@ -96,8 +95,13 @@ class MainController {
     private String getQueryParams(Map args) {
         List attrs = [];
         args.each { k, v ->
-            if (!(k in ["action", "controller"]) && v) {
+            if (!(k in ["action", "controller", "tags"]) && v) {
                 attrs << "$k=$v"
+            }
+            if (k == "tags" && v) {
+                v.each {
+                    attrs << "$k=$it"
+                }
             }
         }
         if (attrs.size()) {

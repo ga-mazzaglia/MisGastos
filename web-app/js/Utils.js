@@ -41,12 +41,17 @@ var Utils = {
     },
 
     getUrlParam: function (param) {
-        var url = new URL(location.href);
-        return url.searchParams.get(param);
+        if (param == "back") {
+            var url = new URL(location.href);
+            return url.search.replace("?back=", "");
+        } else {
+            var url = new URL(location.href);
+            return url.searchParams.get(param);
+        }
     },
 
     isPhone: function () {
-        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             return true;
         }
         return false;
