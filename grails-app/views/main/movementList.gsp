@@ -184,7 +184,7 @@
                                     <div style="float: left;margin-top: 5px;">
                                         <span title="#${mov.id}">${mov.detail}</span><br/>
                                         <g:if test="${mov.userToDisplay}">
-                                            ${mov.userToDisplay}<br />
+                                            ${mov.userToDisplay}<br/>
                                         </g:if>
                                         <g:each in="${mov.tags}" var="tag">
                                             <span style="padding-right: 10px;color: grey;">
@@ -201,27 +201,25 @@
                                             </button>
                                         </g:if>
                                         <g:if test="${mov.user.id == userLogged.id}">
-                                            <button class="btn btn-primary" type="button"
-                                                    onclick="movementListController.edit(${mov.id})"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    data-original-title="Editar">
-                                                <i class="fa fa-pencil"></i>
-                                            </button>
                                             <button class="btn btn-danger" type="button"
                                                     onclick="movementListController.delete(${mov.id})"
                                                     data-toggle="tooltip" data-placement="bottom"
                                                     data-original-title="Eliminar">
                                                 <i class="fa fa-minus"></i>
                                             </button>
-                                        </g:if>
-                                        <g:else>
                                             <button class="btn btn-primary" type="button"
-                                                    onclick="movementListController.showModalAddTags(${mov.id}, ${mov.tags*.id})"
+                                                    onclick="movementListController.edit(${mov.id})"
                                                     data-toggle="tooltip" data-placement="bottom"
-                                                    data-original-title="Agregar tags">
-                                                <i class="fa fa-tag"></i>
+                                                    data-original-title="Editar">
+                                                <i class="fa fa-pencil"></i>
                                             </button>
-                                        </g:else>
+                                        </g:if>
+                                        <button class="btn btn-default" type="button"
+                                                onclick="movementListController.showModalAddTags(${mov.id}, ${mov.tags*.id})"
+                                                data-toggle="tooltip" data-placement="bottom"
+                                                data-original-title="Agregar tags">
+                                            <i class="fa fa-tag"></i>
+                                        </button>
                                     </div>
                                 </div>
 
