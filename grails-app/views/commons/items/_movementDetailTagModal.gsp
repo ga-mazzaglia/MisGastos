@@ -10,7 +10,7 @@
                 <input type="hidden" id="movAddTagId" value="" />
                 <g:each in="${tags}" var="tag">
                     <a onclick="movementListController.clickAddTag(this, ${tag.id});" id="modal_tag_${tag.id}"
-                       class="btn btn-${(tag.id in mov?.tags*.id) || (tag.id in tagsFilter) ? "success" : "primary"} btn-tag"
+                       class="btn btn-${(tag.id in mov?.tags*.id) || (tag.id in tagsFilter) ? "success" : "primary"} btn-tag btn-block"
                        style="margin-bottom: 5px;"
                        tag-id="${tag.id}"
                        tag-detail="${tag.detail}">
@@ -19,7 +19,7 @@
                 </g:each>
             </div>
             <div class="modal-footer">
-                <button id="btnCancel" type="button" class="btn btn-primary" onclick="movementListController.refresh()"><i
+                <button id="btnSaveAddTag" type="button" class="btn btn-primary" onclick="movementListController.refresh()"><i
                         class="fa fa-check"></i> Guardar</button>
             </div>
         </div>

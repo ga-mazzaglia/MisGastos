@@ -40,6 +40,7 @@ var movementListController = {
     },
 
     clickAddTag: function (item, tagId) {
+        jQuery("#btnSaveAddTag").hide()
         var add = false;
         if (jQuery(item).hasClass("btn-primary")) {
             jQuery(item).removeClass("btn-primary").addClass("btn-success");
@@ -53,7 +54,7 @@ var movementListController = {
         var movId = jQuery("#movAddTagId").val()
 
         Rest.doPost("/movement/tag", {mov_id: movId, tag_id: tagId, added: add}, function (data) {
-            console.log(data);
+            jQuery("#btnSaveAddTag").show()
         })
     },
 
