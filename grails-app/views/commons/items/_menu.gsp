@@ -30,6 +30,9 @@
                 <a href="/movement/list" id="movements">Movimientos</a>
             </li>
             <li>
+                <a href="/tag/list" id="tags">Tags</a>
+            </li>
+            <li>
                 <a href="/logout" id="logout" style="color: red;">Salir</a>
             </li>
             <li style="display: none;">

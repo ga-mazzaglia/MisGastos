@@ -1,5 +1,6 @@
 import com.cuentasclaras.builders.RestBuilder
 import com.cuentasclaras.utils.Logger
+import grails.util.Environment
 
 /**
  * Created by gmazzaglia on 10/7/17.
@@ -9,7 +10,9 @@ class PingJob {
     def grailsApplication
 
     static triggers = {
-        cron name: 'PingJob', cronExpression: "0 */1 * * * ?"
+        if (Environment.current != Environment.DEVELOPMENT) {
+            cron name: 'PingJob', cronExpression: "0 */1 * * * ?"
+        }
     }
 
     def group = "MyGroup"

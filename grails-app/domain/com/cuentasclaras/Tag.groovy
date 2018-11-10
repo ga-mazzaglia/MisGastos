@@ -6,7 +6,8 @@ class Tag {
 
     User user
     String detail
-    Integer order
+    Integer position
+    Boolean enabled = 1
 
     static mapping = {
         version false
@@ -16,20 +17,22 @@ class Tag {
     static constraints = {
         user(nullable: false)
         detail(nullable: false, blank: false)
-        order(nullable: false, blank: false)
+        position(nullable: false)
+        enabled(nullable: false)
     }
 
-    public Map getValues() {
+    Map getValues() {
         return [
-                id    : id,
-                detail: detail,
-                order : order,
-        ];
+                id     : id,
+                detail : detail,
+                order  : position,
+                enabled: enabled,
+        ]
     }
 
     @Override
-    public String toString() {
-        return this.getValues() as JSON;
+    String toString() {
+        return this.getValues() as JSON
     }
 
 }

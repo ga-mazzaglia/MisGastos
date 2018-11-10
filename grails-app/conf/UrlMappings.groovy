@@ -15,6 +15,8 @@ class UrlMappings {
             action = [GET: "logout"]
         }
 
+        //-- MOVEMENTS --
+
         "/movement/list"(controller: "Main", parseRequest: true) {
             action = [GET: "movementList"]
         }
@@ -23,6 +25,24 @@ class UrlMappings {
         }
         "/movement/edit/$id"(controller: "Main", parseRequest: true) {
             action = [GET: "movementCreate"]
+        }
+
+        //-- TAGS --
+
+        "/tag/list"(controller: "Main", parseRequest: true) {
+            action = [GET: "tagList"]
+        }
+        "/tag/edit/$id"(controller: "Main", parseRequest: true) {
+            action = [GET: "tagEdit"]
+        }
+        "/tag/create"(controller: "Main", parseRequest: true) {
+            action = [GET: "tagEdit"]
+        }
+        "/tag/remove/$id"(controller: "Main", parseRequest: true) {
+            action = [GET: "tagRemove"]
+        }
+        "/tag/save"(controller: "Main", parseRequest: true) {
+            action = [POST: "tagSave"]
         }
 
         //-- AJAX --

@@ -242,7 +242,7 @@ class MovementService {
                     users        : mov.users*.getValues(),
                     color        : color,
                     userToDisplay: userToDisplay,
-                    tags         : mov.tags.sort { it.order },
+                    tags         : mov.tags.sort { it.position },
             ];
         }
 
