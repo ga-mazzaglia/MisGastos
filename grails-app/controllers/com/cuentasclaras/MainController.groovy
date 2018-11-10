@@ -119,7 +119,8 @@ class MainController {
 
         def tag = tagService.getTag(args.id as Long)
         render(view: "tagDetail", model: [
-                tag: tag
+                tag         : tag,
+                lastPosition: tagService.getLastPosition()
         ])
     }
 

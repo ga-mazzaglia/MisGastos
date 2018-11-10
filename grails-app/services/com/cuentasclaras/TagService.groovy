@@ -55,4 +55,9 @@ class TagService {
         }
         return tag
     }
+
+    Integer getLastPosition() {
+        User userLogged = loginService.getUserLogged()
+        return Tag.findByUserAndEnabled(userLogged, true, [sort: "position", order: "desc"])?.position ?: 0
+    }
 }

@@ -99,8 +99,8 @@
                             <div id="errorMessage"></div>
 
                             <div id="buttons">
-                                <button type="submit" class="btn btn-success">Guardar</button>
-                                <a href="/movement/list" class="btn btn-danger">Cancelar</a>
+                                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Guardar</button>
+                                <a href="/movement/list" class="btn btn-danger"><i class="fa fa-times"></i> Cancelar</a>
                             </div>
                         </form>
                     </div>

@@ -26,13 +26,14 @@
                                 <label>Detalle</label>
                                 <input type="text" class="form-control"
                                        name="detail" value="${tag?.detail}"
+                                       autofocus
                                        style="background-color: white;width: 100%">
                             </div>
                             <!-- Position -->
                             <div class="form-group">
                                 <label>Posici&oacute;n</label>
                                 <input type="text" class="form-control"
-                                       name="position" value="${tag?.position}"
+                                       name="position" value="${tag?.position ?: lastPosition + 1}"
                                        style="background-color: white;width: 100%">
                             </div>
 
@@ -46,8 +47,8 @@
                             <div id="errorMessage"></div>
 
                             <div id="buttons">
-                                <button type="submit" class="btn btn-success">Guardar</button>
-                                <a href="/tag/list" class="btn btn-danger">Cancelar</a>
+                                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Guardar</button>
+                                <a href="/tag/list" class="btn btn-danger"><i class="fa fa-times"></i> Cancelar</a>
                             </div>
                         </form>
                     </div>
