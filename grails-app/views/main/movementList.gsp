@@ -39,16 +39,27 @@
             <i class="fa fa-search"></i>
         </button>
 
-        <div style="margin-top: -10px;padding-bottom: 12px;text-align: right;">
-            <a type="button" class="btn btn-success btn-bookin-add"
-               href="/movement/create"
-               data-toggle="tooltip" data-placement="bottom"
-               data-original-title="Crear un nuevo movimiento">
-                <i class="fa fa-plus"></i> Nuevo
-            </a>
+        <div class="row" style="margin-left: 10px;margin-right: 10px;">
+            <div style="margin-top: -10px;padding-bottom: 12px;float: left;">
+                <a type="button" class="btn btn-primary"
+                   onclick="jQuery('#search_content').toggle()"
+                   data-toggle="tooltip" data-placement="bottom"
+                   data-original-title="Crear un nuevo movimiento">
+                    <i class="fa fa-search"></i> Buscar
+                </a>
+            </div>
+
+            <div style="margin-top: -10px;padding-bottom: 12px;float: right;">
+                <a type="button" class="btn btn-success btn-bookin-add"
+                   href="/movement/create"
+                   data-toggle="tooltip" data-placement="bottom"
+                   data-original-title="Crear un nuevo movimiento">
+                    <i class="fa fa-plus"></i> Nuevo
+                </a>
+            </div>
         </div>
 
-        <div id="search_content" style="background-color: #e0e0e0; padding: 10px;margin-bottom: 10px;">
+        <div id="search_content" style="background-color: #e0e0e0; padding: 10px;margin-bottom: 10px;display: none">
             <form>
                 <div id="search_custom_filters">
                     <div style="display: inline-table;">
