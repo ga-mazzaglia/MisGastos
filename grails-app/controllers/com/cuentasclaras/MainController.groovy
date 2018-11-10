@@ -153,6 +153,23 @@ class MainController {
         this.tagList()
     }
 
+    def statistics() {
+        User userLogged = loginService.getUserLogged()
+        if (!userLogged) {
+            redirect url: "/login?back=/statistics"
+            return
+        }
+
+        Map args = params + request.JSON
+        MovementListCommand movementListCommand = new MovementListCommand()
+        bindData(movementListCommand, args)
+        def result = movementService.getStatistics(movementListCommand)
+
+        render(view: "statistics", model: result)
+    }
+
+    // --- AUX ---
+
     private String getQueryParams(Map args) {
         List attrs = []
         args.each { k, v ->

@@ -31,6 +31,7 @@ var movementListController = {
     },
 
     showModalAddTags: function (id, tagsId) {
+        jQuery(".btn-tag").removeClass("btn-success").addClass("btn-primary");
         jQuery("#movAddTagId").val(id)
         jQuery.each(tagsId, function (index, value) {
             jQuery("#modal_tag_" + value).removeClass("btn-primary").addClass("btn-success");
@@ -55,6 +56,7 @@ var movementListController = {
 
         Rest.doPost("/movement/tag", {mov_id: movId, tag_id: tagId, added: add}, function (data) {
             jQuery("#btnSaveAddTag").show()
+            if(data.status == 200){}
         })
     },
 

@@ -249,6 +249,50 @@ class MovementService {
         return [movements: results, period: period];
     }
 
+    Map getStatistics(MovementListCommand movementListCommand) {
+        User userLogged = loginService.getUserLogged();
+
+        List result = []
+        List<Tag> tagList = Tag.createCriteria().list {
+            eq("user", userLogged)
+            eq("enabled", true)
+        }
+
+        Double totalMovements = Movement.createCriteria().list {
+            eq("user", userLogged)
+            eq("deleted", false)
+            gt("creationDate", movementListCommand.getPeriodCustom().ini)
+            lt("creationDate", movementListCommand.getPeriodCustom().end)
+            'in'("type.id", (Long[]) [1, 2])
+            'tags' {
+                'in'("id", tagList*.id)
+            }
+        }*.amount.sum() ?: 0
+
+        tagList.each { Tag tag ->
+            List<Movement> userMovements = Movement.createCriteria().list {
+                eq("user", userLogged)
+                eq("deleted", false)
+                gt("creationDate", movementListCommand.getPeriodCustom().ini)
+                lt("creationDate", movementListCommand.getPeriodCustom().end)
+                'in'("type.id", (Long[]) [1, 2])
+                'tags' {
+                    eq("id", tag.id)
+                }
+            }
+
+            Double totalTagAmount = userMovements*.amount.sum() ?: 0
+
+            result << [
+                    tagName: tag.detail,
+                    amount : totalTagAmount,
+                    parte  : totalTagAmount ? ((totalTagAmount * 100) / totalMovements) : 0
+            ]
+        }
+
+        return [tags: result, total: totalMovements]
+    }
+
     Map save(MovementEditCommand movementEdit) {
         try {
             Movement movement = Movement.get(movementEdit.id);

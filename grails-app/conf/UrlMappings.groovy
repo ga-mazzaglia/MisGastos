@@ -45,6 +45,10 @@ class UrlMappings {
             action = [POST: "tagSave"]
         }
 
+        "/statistics"(controller: "Main", parseRequest: true) {
+            action = [GET: "statistics"]
+        }
+
         //-- AJAX --
 
         "/ajax/signin"(controller: "Ajax", parseRequest: true) {

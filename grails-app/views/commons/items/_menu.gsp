@@ -30,6 +30,9 @@
                 <a href="/movement/list" id="movements">Movimientos</a>
             </li>
             <li>
+                <a href="/statistics" id="statistics">Estad&iacute;sticas</a>
+            </li>
+            <li>
                 <a href="/tag/list" id="tags">Tags</a>
             </li>
             <li>
