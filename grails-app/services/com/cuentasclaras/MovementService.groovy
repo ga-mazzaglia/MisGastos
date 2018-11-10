@@ -290,7 +290,7 @@ class MovementService {
             ]
         }
 
-        return [tags: result, total: totalMovements]
+        return [tags: result.sort { -it.parte }, total: totalMovements]
     }
 
     Map save(MovementEditCommand movementEdit) {
