@@ -284,6 +284,7 @@ class MovementService {
             Double totalTagAmount = userMovements*.amount.sum() ?: 0
 
             result << [
+                    tagId  : tag.id,
                     tagName: tag.detail,
                     amount : totalTagAmount,
                     parte  : totalTagAmount ? ((totalTagAmount * 100) / totalMovements) : 0

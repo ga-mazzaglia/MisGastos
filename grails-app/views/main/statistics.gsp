@@ -82,7 +82,7 @@
                 <g:each in="${tags}" var="tag" status="i">
                     <tr class="row-mov gradeA ${i % 2 ? "odd" : "even"}">
                         <td>
-                            ${tag.tagName}
+                            <a href="/movement/list?dateIni=${params.dateIni}&dateEnd=${params.dateEnd}&search=&filter_perdiod=thismonth&tags=${tag.tagId}">${tag.tagName}</a>
                         </td>
                         <td class="right">
                             $ ${new java.text.DecimalFormat("###,##0.00").format(tag.amount)}

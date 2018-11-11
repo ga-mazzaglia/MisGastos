@@ -30,7 +30,7 @@
                 <a href="/movement/list" id="movements">Movimientos</a>
             </li>
             <li>
-                <a href="/statistics" id="statistics">Estad&iacute;sticas</a>
+                <a href="/statistics?dateIni=${new Date().format('01/MM/yyyy')}&dateEnd=${new Date().format('31/MM/yyyy')}" id="statistics">Estad&iacute;sticas</a>
             </li>
             <li>
                 <a href="/tag/list" id="tags">Tags</a>

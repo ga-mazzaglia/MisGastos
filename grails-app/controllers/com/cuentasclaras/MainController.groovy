@@ -154,13 +154,14 @@ class MainController {
     }
 
     def statistics() {
+        Map args = params + request.JSON
+
         User userLogged = loginService.getUserLogged()
         if (!userLogged) {
-            redirect url: "/login?back=/statistics"
+            redirect url: "/login?back=/statistics" + getQueryParams(args)
             return
         }
 
-        Map args = params + request.JSON
         MovementListCommand movementListCommand = new MovementListCommand()
         bindData(movementListCommand, args)
         def result = movementService.getStatistics(movementListCommand)
