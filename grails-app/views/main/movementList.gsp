@@ -170,10 +170,10 @@
                     <g:each in="${movements}" var="mov" status="i">
                         <%
                             Double amount = 0;
-                            if (mov.users.size() == 0) {
-                                amount += mov.amount
-                            } else {
+                            if (mov.type.id == 2) {
                                 amount += (mov.amount / (mov.users.size() + 1))
+                            } else if (mov.type.id == 1) {
+                                amount += mov.amount
                             }
                             total += amount
                         %>

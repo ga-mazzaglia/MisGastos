@@ -23,7 +23,10 @@
 <!-- /.row -->
 <div class="row">
     <div id="tag_list" class="col-lg-12 col-md-6">
-        <div id="search_content" style="background-color: #e0e0e0; padding: 10px;margin-bottom: 10px;display: ">
+        <div style="color: grey; margin-top: -15px;margin-bottom: 5px;">
+            (acá solo se muestran <strong>gastos personales</strong> y <strong>gastos compartidos</strong>)
+        </div>
+        <div id="search_content" style="background-color: #e0e0e0; padding: 10px;margin-bottom: 10px;">
             <form>
                 <div id="search_custom_filters">
                     <div style="display: inline-table;">

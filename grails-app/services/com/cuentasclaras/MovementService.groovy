@@ -261,8 +261,8 @@ class MovementService {
         Double totalMovements = Movement.createCriteria().list {
             eq("user", userLogged)
             eq("deleted", false)
-            gt("date", movementListCommand.getPeriodCustom().ini)
-            lt("date", movementListCommand.getPeriodCustom().end)
+            ge("date", movementListCommand.getPeriodCustom().ini)
+            le("date", movementListCommand.getPeriodCustom().end)
             'in'("type.id", (Long[]) [1, 2])
             'tags' {
                 'in'("id", tagList*.id)
@@ -273,15 +273,22 @@ class MovementService {
             List<Movement> userMovements = Movement.createCriteria().list {
                 eq("user", userLogged)
                 eq("deleted", false)
-                gt("date", movementListCommand.getPeriodCustom().ini)
-                lt("date", movementListCommand.getPeriodCustom().end)
+                ge("date", movementListCommand.getPeriodCustom().ini)
+                le("date", movementListCommand.getPeriodCustom().end)
                 'in'("type.id", (Long[]) [1, 2])
                 'tags' {
                     eq("id", tag.id)
                 }
             }
 
-            Double totalTagAmount = userMovements*.amount.sum() ?: 0
+            Double totalTagAmount = 0
+            userMovements.each {
+                if (it.type.id == 2) {
+                    totalTagAmount += (it.amount / (it.users.size() + 1))
+                } else {
+                    totalTagAmount += it.amount
+                }
+            }
 
             result << [
                     tagId  : tag.id,
