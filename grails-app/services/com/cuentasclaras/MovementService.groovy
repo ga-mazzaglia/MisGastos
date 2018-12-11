@@ -179,6 +179,9 @@ class MovementService {
             if (movementListCommand?.tags?.size()) {
                 tags.id in movementListCommand.tags
             }
+            if (movementListCommand?.types) {
+                type.id in movementListCommand.types
+            }
         }
         movements += Movement.findAll([sort: "date", order: "desc"]) {
             eq("deleted", false)
@@ -196,6 +199,9 @@ class MovementService {
             }
             if (movementListCommand?.tags?.size()) {
                 tags.id in movementListCommand.tags
+            }
+            if (movementListCommand?.types) {
+                type.id in movementListCommand.types
             }
         }
 

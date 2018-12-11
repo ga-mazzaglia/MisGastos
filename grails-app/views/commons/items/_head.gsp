@@ -17,6 +17,9 @@
     <!-- Custom CSS -->
     <link href="/resources/dist/css/sb-admin-2.css?v=${v}" rel="stylesheet">
 
+    <!-- Morris Charts CSS -->
+    <link href="/resources/vendor/morrisjs/morris.css" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 

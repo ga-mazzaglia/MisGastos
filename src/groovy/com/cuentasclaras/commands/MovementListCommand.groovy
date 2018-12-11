@@ -23,12 +23,14 @@ class MovementListCommand {
     String dateIni
     String dateEnd
     List<Long> tags
+    List<Long> types
 
     static constraints = {
         search(nullable: true, blank: true)
         filter_perdiod(nullable: true, blank: true, inList: [PERIOD_TODAY, PERIOD_THISWEEK, PERIOD_THISMONTH, PERIOD_LASTMONTH])
         dateIni(nullable: true, blank: true)
         dateEnd(nullable: true, blank: true)
+        types(nullable: true, blank: true)
     }
 
     Map getPeriodToday() {
@@ -199,6 +201,7 @@ class MovementListCommand {
                 dateIni       : dateIni,
                 dateEnd       : dateEnd,
                 tags          : tags,
+                types         : types,
         ];
     }
 
