@@ -307,6 +307,60 @@ class MovementService {
         return [tags: result.sort { -it.parte }, total: totalMovements]
     }
 
+    List getStatisticsByYear(MovementListCommand movementListCommand) {
+        User userLogged = loginService.getUserLogged();
+
+        List result = []
+
+        List<Tag> tagList = Tag.createCriteria().list {
+            eq("user", userLogged)
+            eq("enabled", true)
+        }
+
+        Date dateNow = new Date();
+        List dates = []
+        for (int i = 1; i < 13; i++) {
+            dates << Date.parse("yyyyMM", dateNow.format("yyyy") + i.toString().padLeft(2, "0"))
+        }
+
+        for (Date current : dates) {
+            Date to; ;
+            use(groovy.time.TimeCategory) {
+                to = current + 1.month
+            }
+            println "from $current to $to"
+            Map tagResult = [:]
+            tagList.each { Tag tag ->
+                List<Movement> userMovements = Movement.createCriteria().list {
+                    eq("user", userLogged)
+                    eq("deleted", false)
+                    ge("date", current)
+                    le("date", to)
+                    'in'("type.id", (Long[]) [1, 2])
+                    'tags' {
+                        eq("id", tag.id)
+                    }
+                }
+                Double totalTagAmount = 0
+                userMovements.each {
+                    if (it.type.id == 2) {
+                        totalTagAmount += new BigDecimal(it.amount / (it.users.size() + 1)).setScale(2, BigDecimal.ROUND_HALF_UP)
+                    } else {
+                        totalTagAmount += new BigDecimal(it.amount).setScale(2, BigDecimal.ROUND_HALF_UP)
+                    }
+                }
+
+                tagResult["${tag.detail}"] = new BigDecimal(totalTagAmount).setScale(2, BigDecimal.ROUND_HALF_UP);
+            }
+            tagResult["period"] = current.format("yyyy-MM")
+            result << tagResult
+        }
+        result.each {
+            println it
+        }
+        return result
+    }
+
     Map save(MovementEditCommand movementEdit) {
         try {
             Movement movement = Movement.get(movementEdit.id);

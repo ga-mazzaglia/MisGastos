@@ -22,8 +22,9 @@
 
 <div class="row">
     <div id="tag_list" class="col-lg-12 col-md-6">
-        <div style="color: grey; margin-top: -15px;margin-bottom: 5px;">
-            (ac&aacute; solo se mostrar&aacute;n <strong>gastos personales</strong> y <strong>gastos compartidos</strong>)
+
+        <div style="margin-bottom: 15px;">
+            Ac&aacute; solo se mostrar&aacute;n <strong>gastos personales</strong> y <strong>gastos compartidos</strong>(la parte que te corresponde)
         </div>
 
         <div id="search_content" style="background-color: #e0e0e0; padding: 10px;margin-bottom: 10px;">
@@ -77,12 +78,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <g:if test="${tags.size() == 0}">
+                <g:if test="${percentage.tags.size() == 0}">
                     <tr>
                         <td class="center" colspan="3">no hay movimientos</td>
                     </tr>
                 </g:if>
-                <g:each in="${tags}" var="tag" status="i">
+                <g:each in="${percentage.tags}" var="tag" status="i">
                     <tr class="row-mov gradeA ${i % 2 ? "odd" : "even"}">
                         <td>
                             <a href="/movement/list?dateIni=${params.dateIni}&dateEnd=${params.dateEnd}&search=&filter_perdiod=thismonth&tags=${tag.tagId}&types=1&types=2">${tag.tagName}</a>
@@ -103,12 +104,12 @@
 </div>
 <!-- /.row -->
 
-<div class="row hidden">
+<div class="row">
     <div class="col-lg-12 col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Historial de gastos
-                <div class="pull-right">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Historial de gastos anual
+                <div class="pull-right hidden">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                             Año
@@ -142,45 +143,40 @@
 <script src="/js/controllers/tagListController.js?v=${v}"></script>
 <g:render template="/commons/footer"/>
 
+<div id="chartValues" class="hidden">${byYear}</div>
+<div id="labelValues" class="hidden">${tags}</div>
+
 <script type="text/javascript">
     console.log("tagListController()");
     $(function () {
         Morris.Area({
             element: 'morris-area-chart',
-            data: [{
-                month: '1',
-                casa: 2666,
-                auto: null,
-                otro: 2647
-            }, {
-                month: '2',
-                casa: 2778,
-                auto: 2294,
-                otro: 2441
-            }, {
-                month: '3',
-                casa: 4912,
-                auto: 1969,
-                otro: 2501
-            }],
-            xkey: 'month',
-            ykeys: ['casa', 'auto', 'otro'],
-            xLabels: 'month',
-            xLabelFormat: function (d) {
-                var weekdays = new Array(7);
-                weekdays[0] = "SUN";
-                weekdays[1] = "MON";
-                weekdays[2] = "TUE";
-                weekdays[3] = "WED";
-                weekdays[4] = "THU";
-                weekdays[5] = "FRI";
-                weekdays[6] = "SAT";
-
-                return weekdays[d.getDay()];
-            },
-            labels: ['Casa', 'Auto', 'Otro'],
-            pointSize: 2,
+            data: JSON.parse(jQuery("#chartValues").html()),
+            lineColors: ['#819C79', '#fc8710', '#FF6541', '#A4ADD3', '#766B56'],
+            xkey: 'period',
+            ykeys: JSON.parse(jQuery("#labelValues").html()),
+            labels: JSON.parse(jQuery("#labelValues").html()),
+            xLabels: 'months',
+            xLabelAngle: 45,
             hideHover: 'auto',
+            behaveLikeLine: true,
+            xLabelFormat: function (d) {
+                var months = [
+                    "Enero",
+                    "Febrero",
+                    "Marzo",
+                    "Abril",
+                    "Mayo",
+                    "Junio",
+                    "Julio",
+                    "Agosto",
+                    "Septiembre",
+                    "Octubre",
+                    "Noviembre",
+                    "Diciembre"];
+
+                return months[d.getMonth()];
+            },
             resize: true
         });
     });

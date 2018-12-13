@@ -92,7 +92,7 @@ class MovementListCommand {
         return [ini: ini, end: end];
     }
 
-    Map getPeriodCustom() {
+    Map<String, Date> getPeriodCustom() {
         Logger.trace([:], "Init getPeriodCustom()");
         Date ini = null;
         Date end = null;

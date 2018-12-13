@@ -1,6 +1,7 @@
 package com.cuentasclaras
 
 import com.cuentasclaras.commands.MovementListCommand
+import grails.converters.JSON
 import grails.util.Environment
 
 class MainController {
@@ -164,9 +165,15 @@ class MainController {
 
         MovementListCommand movementListCommand = new MovementListCommand()
         bindData(movementListCommand, args)
-        def result = movementService.getStatistics(movementListCommand)
+        def percentage = movementService.getStatistics(movementListCommand)
+        def byYear = movementService.getStatisticsByYear(movementListCommand)
+        def tags = tagService.getTags()
 
-        render(view: "statistics", model: result)
+        render(view: "statistics", model: [
+                percentage: percentage,
+                byYear    : byYear as JSON,
+                tags      : tags*.detail as JSON
+        ])
     }
 
     // --- AUX ---
