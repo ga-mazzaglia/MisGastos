@@ -290,24 +290,25 @@ class MovementService {
             Double totalTagAmount = 0
             userMovements.each {
                 if (it.type.id == 2) {
-                    totalTagAmount += (it.amount / (it.users.size() + 1))
+                    totalTagAmount += new BigDecimal(it.amount / (it.users.size() + 1)).setScale(2, BigDecimal.ROUND_HALF_UP)
                 } else {
-                    totalTagAmount += it.amount
+                    totalTagAmount += new BigDecimal(it.amount).setScale(2, BigDecimal.ROUND_HALF_UP)
                 }
             }
 
+            def parte = new BigDecimal(totalTagAmount ? ((totalTagAmount * 100) / totalMovements) : 0).setScale(2, BigDecimal.ROUND_HALF_UP)
             result << [
                     tagId  : tag.id,
                     tagName: tag.detail,
                     amount : totalTagAmount,
-                    parte  : totalTagAmount ? ((totalTagAmount * 100) / totalMovements) : 0
+                    parte  : parte
             ]
         }
 
         return [tags: result.sort { -it.parte }, total: totalMovements]
     }
 
-    List getStatisticsByYear(MovementListCommand movementListCommand) {
+    List getStatisticsByYear() {
         User userLogged = loginService.getUserLogged();
 
         List result = []
@@ -323,14 +324,16 @@ class MovementService {
             dates << Date.parse("yyyyMM", dateNow.format("yyyy") + i.toString().padLeft(2, "0"))
         }
 
-        for (Date current : dates) {
-            Date to; ;
-            use(groovy.time.TimeCategory) {
-                to = current + 1.month
-            }
-            println "from $current to $to"
+        tagList.each { Tag tag ->
             Map tagResult = [:]
-            tagList.each { Tag tag ->
+            List values = []
+            for (Date current : dates) {
+                Date to
+                use(groovy.time.TimeCategory) {
+                    to = current + 1.month
+                }
+
+
                 List<Movement> userMovements = Movement.createCriteria().list {
                     eq("user", userLogged)
                     eq("deleted", false)
@@ -350,13 +353,11 @@ class MovementService {
                     }
                 }
 
-                tagResult["${tag.detail}"] = new BigDecimal(totalTagAmount).setScale(2, BigDecimal.ROUND_HALF_UP);
+                values << new BigDecimal(totalTagAmount).setScale(2, BigDecimal.ROUND_HALF_UP);
             }
-            tagResult["period"] = current.format("yyyy-MM")
+            tagResult["tag"] = tag.detail
+            tagResult["values"] = values
             result << tagResult
-        }
-        result.each {
-            println it
         }
         return result
     }

@@ -166,13 +166,19 @@ class MainController {
         MovementListCommand movementListCommand = new MovementListCommand()
         bindData(movementListCommand, args)
         def percentage = movementService.getStatistics(movementListCommand)
-        def byYear = movementService.getStatisticsByYear(movementListCommand)
+        def byYear = movementService.getStatisticsByYear()
         def tags = tagService.getTags()
 
+        def chartValues = [];
+        percentage.tags.each {
+            chartValues << [label: it.tagName, value: it.parte]
+        }
+
         render(view: "statistics", model: [
-                percentage: percentage,
-                byYear    : byYear as JSON,
-                tags      : tags*.detail as JSON
+                percentage : percentage,
+                chartValues: chartValues as JSON,
+                byYear     : byYear as JSON,
+                tags       : tags*.detail as JSON,
         ])
     }
 

@@ -10,6 +10,7 @@ class AjaxController {
 
     LoginService loginService
     MovementService movementService
+    TagService tagService
 
     def signIn() {
         Map args = params + request.JSON;
@@ -80,6 +81,22 @@ class AjaxController {
         result = movementService.addTag(args.mov_id as Long, args.tag_id as Long, (args.added as Long) as Boolean);
         response.status = result.status;
 
+        render result as JSON
+    }
+
+    def chartInfo() {
+        Map result = [:];
+
+        def byYear = movementService.getStatisticsByYear()
+        def tags = tagService.getTags()
+
+        byYear.each {
+            println it
+        }
+        println tags
+
+        result.byYear = byYear
+        result.tags = tags*.detail
         render result as JSON
     }
 

@@ -92,7 +92,7 @@
                             $ ${new java.text.DecimalFormat("###,##0.00").format(tag.amount)}
                         </td>
                         <td class="center">
-                            ${new java.text.DecimalFormat("###,##0.0").format(tag.parte)} %
+                            ${tag.parte} %
                         </td>
                     </tr>
                 </g:each>
@@ -132,6 +132,7 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div id="morris-area-chart"></div>
+                <canvas id="myChart" width="400" height="400"></canvas>
             </div>
             <!-- /.panel-body -->
         </div>
@@ -144,12 +145,39 @@
 <g:render template="/commons/footer"/>
 
 <div id="chartValues" class="hidden">${byYear}</div>
+
 <div id="labelValues" class="hidden">${tags}</div>
 
+<div id="chartValues2" class="hidden">${chartValues}</div>
+
+<script src="/js/Chart.min.js"></script>
 <script type="text/javascript">
     console.log("tagListController()");
     $(function () {
-        Morris.Area({
+        var colors = ["#00FFFF", "#AFEEEE", "#7FFFD4", "#40E0D0", "#48D1CC", "#00CED1", "#5F9EA0", "#4682B4", "#B0C4DE", "#B0E0E6", "#ADD8E6", "#87CEEB", "#87CEFA", "#00BFFF", "#1E90FF", "#6495ED", "#7B68EE", "#4169E1", "#0000FF"];
+        Rest.doGet("/chartinfo", function (result) {
+            var items = [];
+            jQuery.each(result.byYear, function (index, item) {
+                items.push({
+                    label: item.tag,
+                    data: item.values,
+                    fill: false,
+                    borderColor: colors[index],
+                    backgroundColor: colors[index],
+                    pointBorderColor: colors[index],
+                    pointBackgroundColor: colors[index],
+                })
+            });
+            initChart(items)
+        })
+        /*Morris.Donut({
+            element: 'morris-area-chart',
+            colors: ["#00a65a", "#f39c12", "#3c8dbc", "#dd4b39", "#555299"],
+            data: JSON.parse(jQuery("#chartValues2").html()),
+            formatter: function (x) { return x + " %"}
+        });*/
+
+        /*Morris.Area({
             element: 'morris-area-chart',
             data: JSON.parse(jQuery("#chartValues").html()),
             lineColors: ['#819C79', '#fc8710', '#FF6541', '#A4ADD3', '#766B56'],
@@ -160,24 +188,53 @@
             xLabelAngle: 45,
             hideHover: 'auto',
             behaveLikeLine: true,
+            showBarLabels: false,
             xLabelFormat: function (d) {
-                var months = [
-                    "Enero",
-                    "Febrero",
-                    "Marzo",
-                    "Abril",
-                    "Mayo",
-                    "Junio",
-                    "Julio",
-                    "Agosto",
-                    "Septiembre",
-                    "Octubre",
-                    "Noviembre",
-                    "Diciembre"];
+                var months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 
                 return months[d.getMonth()];
             },
             resize: true
-        });
+        });*/
     });
+
+    function initChart(chartInfo) {
+        var ctx = document.getElementById("myChart");
+        var speedData = {
+            labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+            datasets: chartInfo
+        };
+        var chartOptions = {
+            legend: {
+                display: true,
+                position: 'bottom',
+                labels: {
+                    boxWidth: 20,
+                    fontColor: 'black'
+                }
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        return " $ " + tooltipItem.yLabel
+                    }
+                }
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, values) {
+                            return '$ ' + value;
+                        }
+                    }
+                }]
+            }
+        };
+        new Chart(ctx, {
+            type: 'line',
+            data: speedData,
+            options: chartOptions,
+        });
+    }
 </script>
