@@ -219,7 +219,7 @@
                         return data.datasets[tooltipItem[0].datasetIndex].label + " - " + tooltipItem[0].xLabel
                     },
                     label: function (tooltipItem, data) {
-                        return " $ " + tooltipItem.yLabel
+                        return " $ " + parseFloat(tooltipItem.yLabel).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
                     }
                 }
             },
@@ -228,7 +228,7 @@
                     ticks: {
                         // Include a dollar sign in the ticks
                         callback: function (value, index, values) {
-                            return '$ ' + parseFloat(value).toFixed(2);
+                            return '$ ' + parseFloat(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
                         }
                     }
                 }]
