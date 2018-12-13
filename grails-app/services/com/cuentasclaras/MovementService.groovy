@@ -332,8 +332,6 @@ class MovementService {
                 use(groovy.time.TimeCategory) {
                     to = current + 1.month
                 }
-
-
                 List<Movement> userMovements = Movement.createCriteria().list {
                     eq("user", userLogged)
                     eq("deleted", false)
@@ -352,7 +350,6 @@ class MovementService {
                         totalTagAmount += new BigDecimal(it.amount).setScale(2, BigDecimal.ROUND_HALF_UP)
                     }
                 }
-
                 values << new BigDecimal(totalTagAmount).setScale(2, BigDecimal.ROUND_HALF_UP);
             }
             tagResult["tag"] = tag.detail

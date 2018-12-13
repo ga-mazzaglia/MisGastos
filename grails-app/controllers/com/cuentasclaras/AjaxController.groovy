@@ -90,11 +90,6 @@ class AjaxController {
         def byYear = movementService.getStatisticsByYear()
         def tags = tagService.getTags()
 
-        byYear.each {
-            println it
-        }
-        println tags
-
         result.byYear = byYear
         result.tags = tags*.detail
         render result as JSON

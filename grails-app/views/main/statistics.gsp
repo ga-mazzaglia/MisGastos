@@ -215,6 +215,9 @@
             },
             tooltips: {
                 callbacks: {
+                    title: function (tooltipItem, data) {
+                        return data.datasets[tooltipItem[0].datasetIndex].label + " - " + tooltipItem[0].xLabel
+                    },
                     label: function (tooltipItem, data) {
                         return " $ " + tooltipItem.yLabel
                     }
@@ -224,8 +227,8 @@
                 yAxes: [{
                     ticks: {
                         // Include a dollar sign in the ticks
-                        callback: function(value, index, values) {
-                            return '$ ' + value;
+                        callback: function (value, index, values) {
+                            return '$ ' + parseFloat(value).toFixed(2);
                         }
                     }
                 }]
