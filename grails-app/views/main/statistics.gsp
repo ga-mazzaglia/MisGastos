@@ -155,7 +155,11 @@
     console.log("tagListController()");
     $(function () {
         var colors = ["#00FFFF", "#AFEEEE", "#7FFFD4", "#40E0D0", "#48D1CC", "#00CED1", "#5F9EA0", "#4682B4", "#B0C4DE", "#B0E0E6", "#ADD8E6", "#87CEEB", "#87CEFA", "#00BFFF", "#1E90FF", "#6495ED", "#7B68EE", "#4169E1", "#0000FF"];
-        Rest.doGet("/chartinfo", function (result) {
+
+        var dateIni = new URLSearchParams(location.search).get("dateIni")
+        var dateEnd = new URLSearchParams(location.search).get("dateEnd")
+
+        Rest.doGet("/chartinfo?dateIni="+dateIni+"&dateEnd="+dateEnd, function (result) {
             var items = [];
             jQuery.each(result.byYear, function (index, item) {
                 items.push({
@@ -166,36 +170,13 @@
                     backgroundColor: colors[index],
                     pointBorderColor: colors[index],
                     pointBackgroundColor: colors[index],
+
+                    pointRadius: 8,
+                    pointHoverRadius: 8,
                 })
             });
             initChart(items)
         })
-        /*Morris.Donut({
-            element: 'morris-area-chart',
-            colors: ["#00a65a", "#f39c12", "#3c8dbc", "#dd4b39", "#555299"],
-            data: JSON.parse(jQuery("#chartValues2").html()),
-            formatter: function (x) { return x + " %"}
-        });*/
-
-        /*Morris.Area({
-            element: 'morris-area-chart',
-            data: JSON.parse(jQuery("#chartValues").html()),
-            lineColors: ['#819C79', '#fc8710', '#FF6541', '#A4ADD3', '#766B56'],
-            xkey: 'period',
-            ykeys: JSON.parse(jQuery("#labelValues").html()),
-            labels: JSON.parse(jQuery("#labelValues").html()),
-            xLabels: 'months',
-            xLabelAngle: 45,
-            hideHover: 'auto',
-            behaveLikeLine: true,
-            showBarLabels: false,
-            xLabelFormat: function (d) {
-                var months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-
-                return months[d.getMonth()];
-            },
-            resize: true
-        });*/
     });
 
     function initChart(chartInfo) {
