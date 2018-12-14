@@ -168,11 +168,12 @@
                     fill: false,
                     borderColor: colors[index],
                     backgroundColor: colors[index],
+
                     pointBorderColor: colors[index],
                     pointBackgroundColor: colors[index],
 
-                    pointRadius: 8,
-                    pointHoverRadius: 8,
+                    pointRadius: 6,
+                    pointHoverRadius: 6,
                 })
             });
             initChart(items)
