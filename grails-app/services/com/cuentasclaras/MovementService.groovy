@@ -336,7 +336,7 @@ class MovementService {
                     eq("user", userLogged)
                     eq("deleted", false)
                     ge("date", current)
-                    le("date", to)
+                    lt("date", to)
                     'in'("type.id", (Long[]) [1, 2])
                     'tags' {
                         eq("id", tag.id)
