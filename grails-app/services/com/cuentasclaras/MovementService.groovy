@@ -248,7 +248,7 @@ class MovementService {
                     users        : mov.users*.getValues(),
                     color        : color,
                     userToDisplay: userToDisplay,
-                    tags         : mov.tags.sort { it.position },
+                    tags         : mov.tags.findAll { it.user.id == userLogged.id }.sort { it.position },
             ];
         }
 
@@ -443,26 +443,27 @@ class MovementService {
         }
     }
 
-    Map addTag(Long movId, Long tagId, Boolean added) {
+    Map addRemoveTag(Long movId, Long tagId, Boolean added) {
         try {
             Movement movement = Movement.get(movId);
+            Tag tag = null
             if (movement) {
                 Date current = new Date();
                 use(groovy.time.TimeCategory) {
                     current += (grailsApplication.config.timeZone).hours
                 }
                 movement.lastUpdate = current;
-                Tag tag = Tag.get(tagId)
+                tag = Tag.get(tagId)
                 if (added)
                     movement.tags.add(tag)
                 else
                     movement.tags.remove(tag)
                 movement.save(flush: true, failOnError: true)
             }
-            return [status: HttpStatus.SC_OK, response: movement.getValues()]
+            return [status: HttpStatus.SC_OK, response: [movement: movement.getValues(), tag: tag, added: added]]
         } catch (Exception ex) {
             ex.printStackTrace();
-            Logger.error([id: movId], "MovementService.addTag() Exception: " + ex.getMessage());
+            Logger.error([id: movId], "MovementService.addRemoveTag() Exception: " + ex.getMessage());
             return [status: HttpStatus.SC_INTERNAL_SERVER_ERROR, response: [message: ex.getMessage()]]
         }
     }

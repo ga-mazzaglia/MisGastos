@@ -197,11 +197,14 @@
                                         <g:if test="${mov.userToDisplay}">
                                             ${mov.userToDisplay}<br/>
                                         </g:if>
-                                        <g:each in="${mov.tags}" var="tag">
-                                            <span style="padding-right: 10px;color: grey;">
-                                                <i style="color: grey" class="fa fa-tag"></i> ${tag.detail}
-                                            </span>
-                                        </g:each>
+                                        <span id="mov_tag_list_${mov.id}">
+                                            <g:each in="${mov.tags}" var="tag">
+                                                <span id="tag_${mov.id}_${tag.id}"
+                                                style="padding-right: 10px;color: grey;">
+                                                    <i style="color: grey" class="fa fa-tag"></i> ${tag.detail}
+                                                </span>
+                                            </g:each>
+                                        </span>
                                     </div>
 
                                     <div class="buttons">

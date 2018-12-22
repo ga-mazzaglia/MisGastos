@@ -74,11 +74,11 @@ class AjaxController {
         render result as JSON
     }
 
-    def movementAddTag() {
+    def movementAddRemoveTag() {
         Map result = [:];
         def args = params + request.JSON;
 
-        result = movementService.addTag(args.mov_id as Long, args.tag_id as Long, (args.added as Long) as Boolean);
+        result = movementService.addRemoveTag(args.mov_id as Long, args.tag_id as Long, (args.added as Long) as Boolean);
         response.status = result.status;
 
         render result as JSON

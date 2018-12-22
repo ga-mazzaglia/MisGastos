@@ -19,7 +19,7 @@
                 </g:each>
             </div>
             <div class="modal-footer">
-                <button id="btnSaveAddTag" type="button" class="btn btn-primary" onclick="movementListController.refresh()"><i
+                <button id="btnSaveAddTag" type="button" class="btn btn-primary" data-dismiss="modal"><i
                         class="fa fa-check"></i> Guardar</button>
             </div>
         </div>

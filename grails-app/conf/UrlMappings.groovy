@@ -64,7 +64,7 @@ class UrlMappings {
             action = [GET: "movementDetail"]
         }
         "/ajax/movement/tag"(controller: "Ajax", parseRequest: true) {
-            action = [POST: "movementAddTag"]
+            action = [POST: "movementAddRemoveTag"]
         }
         "/ajax/chartinfo"(controller: "Ajax", parseRequest: true) {
             action = [GET: "chartInfo"]

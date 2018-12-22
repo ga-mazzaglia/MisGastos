@@ -30,11 +30,13 @@ var movementListController = {
         });
     },
 
-    showModalAddTags: function (id, tagsId) {
+    showModalAddTags: function (movId) {
+        var tags = jQuery("#mov_tag_list_" + movId).find("span")
         jQuery(".btn-tag").removeClass("btn-success").addClass("btn-primary");
-        jQuery("#movAddTagId").val(id)
-        jQuery.each(tagsId, function (index, value) {
-            jQuery("#modal_tag_" + value).removeClass("btn-primary").addClass("btn-success");
+        jQuery("#movAddTagId").val(movId)
+        jQuery(tags).each(function (index, value) {
+            var tagId = value.id.split("_")[2]
+            jQuery("#modal_tag_" + tagId).removeClass("btn-primary").addClass("btn-success");
         })
 
         jQuery("#tagsModal").click()
@@ -55,8 +57,15 @@ var movementListController = {
         var movId = jQuery("#movAddTagId").val()
 
         Rest.doPost("/movement/tag", {mov_id: movId, tag_id: tagId, added: add}, function (data) {
+            console.log(data, data.response, data.response.added == true);
             jQuery("#btnSaveAddTag").show()
-            if(data.status == 200){}
+            if (data.status == 200) {
+                if (data.response.added) {
+                    jQuery("#mov_tag_list_" + movId).append('<span id="tag_' + movId + '_' + tagId + '" style="padding-right: 10px;color: grey;"><i style="color: grey" class="fa fa-tag"></i> ' + data.response.tag.detail + '</span>')
+                } else {
+                    jQuery("#mov_tag_list_" + movId).find("#tag_" + movId + "_" + tagId).remove()
+                }
+            }
         })
     },
 
